@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, FloatingViewLayout {
+class ImagePickerController: UIViewController, FloatingViewLayout {
   
   // MARK: Outlets 
   
@@ -43,11 +43,11 @@ class ViewController: UIViewController, FloatingViewLayout {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    let pan = UIPanGestureRecognizer(target: self, action: #selector(ViewController.didRecognizeMainPan(_:)))
+    let pan = UIPanGestureRecognizer(target: self, action: #selector(ImagePickerController.didRecognizeMainPan(_:)))
     view.addGestureRecognizer(pan)
     pan.delegate = self
     
-    let checkPan = UIPanGestureRecognizer(target: self, action: #selector(ViewController.didRecognizeCheckPan(_:)))
+    let checkPan = UIPanGestureRecognizer(target: self, action: #selector(ImagePickerController.didRecognizeCheckPan(_:)))
     floatingView.addGestureRecognizer(checkPan)
     checkPan.delegate = self
   }
@@ -93,7 +93,7 @@ class ViewController: UIViewController, FloatingViewLayout {
 
 // MARK: - UIGestureRecognizerDelegate
 
-extension ViewController: UIGestureRecognizerDelegate {
+extension ImagePickerController: UIGestureRecognizerDelegate {
   func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
     return true
   }
@@ -105,7 +105,7 @@ extension ViewController: UIGestureRecognizerDelegate {
 
 // MARK: - UITableView management
 
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
+extension ImagePickerController: UITableViewDataSource, UITableViewDelegate {
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }

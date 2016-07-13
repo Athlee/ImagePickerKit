@@ -6,10 +6,10 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Image Picker Controller-->
         <scene sceneID="Ll4-eh-g9d">
             <objects>
-                <viewController id="mpd-HD-A2R" customClass="ViewController" customModule="Athlee_ImagePicker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="mpd-HD-A2R" customClass="ImagePickerController" customModule="Athlee_ImagePicker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vsh-dw-Kbu"/>
                         <viewControllerLayoutGuide type="bottom" id="oFd-Mb-eg2"/>

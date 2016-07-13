@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		040D62DD1D36A990003F8D8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D62DC1D36A990003F8D8E /* AppDelegate.swift */; };
-		040D62DF1D36A990003F8D8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D62DE1D36A990003F8D8E /* ViewController.swift */; };
+		040D62DF1D36A990003F8D8E /* ImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D62DE1D36A990003F8D8E /* ImagePickerController.swift */; };
 		040D62E21D36A990003F8D8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040D62E01D36A990003F8D8E /* Main.storyboard */; };
 		040D62E41D36A990003F8D8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 040D62E31D36A990003F8D8E /* Assets.xcassets */; };
 		040D62E71D36A990003F8D8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040D62E51D36A990003F8D8E /* LaunchScreen.storyboard */; };
@@ -29,7 +29,7 @@
 /* Begin PBXFileReference section */
 		040D62D91D36A990003F8D8E /* Athlee-ImagePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Athlee-ImagePicker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		040D62DC1D36A990003F8D8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		040D62DE1D36A990003F8D8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		040D62DE1D36A990003F8D8E /* ImagePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerController.swift; sourceTree = "<group>"; };
 		040D62E11D36A990003F8D8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		040D62E31D36A990003F8D8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		040D62E61D36A990003F8D8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 		040D62FC1D36A99F003F8D8E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				040D62DE1D36A990003F8D8E /* ViewController.swift */,
+				040D62DE1D36A990003F8D8E /* ImagePickerController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -266,7 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				040D63051D36AA54003F8D8E /* FloatingViewLayout.swift in Sources */,
-				040D62DF1D36A990003F8D8E /* ViewController.swift in Sources */,
+				040D62DF1D36A990003F8D8E /* ImagePickerController.swift in Sources */,
 				040D62DD1D36A990003F8D8E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
