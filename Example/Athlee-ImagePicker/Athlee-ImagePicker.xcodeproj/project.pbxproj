@@ -1,0 +1,472 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		040D62DD1D36A990003F8D8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D62DC1D36A990003F8D8E /* AppDelegate.swift */; };
+		040D62DF1D36A990003F8D8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D62DE1D36A990003F8D8E /* ViewController.swift */; };
+		040D62E21D36A990003F8D8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040D62E01D36A990003F8D8E /* Main.storyboard */; };
+		040D62E41D36A990003F8D8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 040D62E31D36A990003F8D8E /* Assets.xcassets */; };
+		040D62E71D36A990003F8D8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040D62E51D36A990003F8D8E /* LaunchScreen.storyboard */; };
+		040D62F21D36A991003F8D8E /* Athlee_ImagePickerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D62F11D36A991003F8D8E /* Athlee_ImagePickerTests.swift */; };
+		040D63051D36AA54003F8D8E /* FloatingViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D63041D36AA54003F8D8E /* FloatingViewLayout.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		040D62EE1D36A991003F8D8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 040D62D11D36A990003F8D8E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 040D62D81D36A990003F8D8E;
+			remoteInfo = "Athlee-ImagePicker";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		040D62D91D36A990003F8D8E /* Athlee-ImagePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Athlee-ImagePicker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		040D62DC1D36A990003F8D8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		040D62DE1D36A990003F8D8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		040D62E11D36A990003F8D8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		040D62E31D36A990003F8D8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		040D62E61D36A990003F8D8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		040D62E81D36A990003F8D8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		040D62ED1D36A991003F8D8E /* Athlee-ImagePickerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Athlee-ImagePickerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		040D62F11D36A991003F8D8E /* Athlee_ImagePickerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Athlee_ImagePickerTests.swift; sourceTree = "<group>"; };
+		040D62F31D36A991003F8D8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		040D63041D36AA54003F8D8E /* FloatingViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingViewLayout.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		040D62D61D36A990003F8D8E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		040D62EA1D36A991003F8D8E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		040D62D01D36A990003F8D8E = {
+			isa = PBXGroup;
+			children = (
+				040D63031D36AA54003F8D8E /* Source */,
+				040D62DB1D36A990003F8D8E /* Athlee-ImagePicker */,
+				040D62F01D36A991003F8D8E /* Athlee-ImagePickerTests */,
+				040D62DA1D36A990003F8D8E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		040D62DA1D36A990003F8D8E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				040D62D91D36A990003F8D8E /* Athlee-ImagePicker.app */,
+				040D62ED1D36A991003F8D8E /* Athlee-ImagePickerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		040D62DB1D36A990003F8D8E /* Athlee-ImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				040D62FD1D36A9DB003F8D8E /* Application */,
+				040D62FE1D36A9E4003F8D8E /* Models */,
+				040D62FF1D36A9E9003F8D8E /* Views */,
+				040D62FC1D36A99F003F8D8E /* Controllers */,
+				040D62DC1D36A990003F8D8E /* AppDelegate.swift */,
+			);
+			path = "Athlee-ImagePicker";
+			sourceTree = "<group>";
+		};
+		040D62F01D36A991003F8D8E /* Athlee-ImagePickerTests */ = {
+			isa = PBXGroup;
+			children = (
+				040D62F11D36A991003F8D8E /* Athlee_ImagePickerTests.swift */,
+				040D62F31D36A991003F8D8E /* Info.plist */,
+			);
+			path = "Athlee-ImagePickerTests";
+			sourceTree = "<group>";
+		};
+		040D62FC1D36A99F003F8D8E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				040D62DE1D36A990003F8D8E /* ViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		040D62FD1D36A9DB003F8D8E /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				040D63021D36AA25003F8D8E /* Support */,
+				040D63011D36AA00003F8D8E /* Assets */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		040D62FE1D36A9E4003F8D8E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		040D62FF1D36A9E9003F8D8E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				040D63001D36A9F0003F8D8E /* Storyboards */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		040D63001D36A9F0003F8D8E /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				040D62E01D36A990003F8D8E /* Main.storyboard */,
+				040D62E51D36A990003F8D8E /* LaunchScreen.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		040D63011D36AA00003F8D8E /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				040D62E31D36A990003F8D8E /* Assets.xcassets */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		040D63021D36AA25003F8D8E /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				040D62E81D36A990003F8D8E /* Info.plist */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
+		040D63031D36AA54003F8D8E /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				040D63041D36AA54003F8D8E /* FloatingViewLayout.swift */,
+			);
+			name = Source;
+			path = ../../Source;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		040D62D81D36A990003F8D8E /* Athlee-ImagePicker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 040D62F61D36A991003F8D8E /* Build configuration list for PBXNativeTarget "Athlee-ImagePicker" */;
+			buildPhases = (
+				040D62D51D36A990003F8D8E /* Sources */,
+				040D62D61D36A990003F8D8E /* Frameworks */,
+				040D62D71D36A990003F8D8E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Athlee-ImagePicker";
+			productName = "Athlee-ImagePicker";
+			productReference = 040D62D91D36A990003F8D8E /* Athlee-ImagePicker.app */;
+			productType = "com.apple.product-type.application";
+		};
+		040D62EC1D36A991003F8D8E /* Athlee-ImagePickerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 040D62F91D36A991003F8D8E /* Build configuration list for PBXNativeTarget "Athlee-ImagePickerTests" */;
+			buildPhases = (
+				040D62E91D36A991003F8D8E /* Sources */,
+				040D62EA1D36A991003F8D8E /* Frameworks */,
+				040D62EB1D36A991003F8D8E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				040D62EF1D36A991003F8D8E /* PBXTargetDependency */,
+			);
+			name = "Athlee-ImagePickerTests";
+			productName = "Athlee-ImagePickerTests";
+			productReference = 040D62ED1D36A991003F8D8E /* Athlee-ImagePickerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		040D62D11D36A990003F8D8E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Athlee;
+				TargetAttributes = {
+					040D62D81D36A990003F8D8E = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					040D62EC1D36A991003F8D8E = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 040D62D81D36A990003F8D8E;
+					};
+				};
+			};
+			buildConfigurationList = 040D62D41D36A990003F8D8E /* Build configuration list for PBXProject "Athlee-ImagePicker" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 040D62D01D36A990003F8D8E;
+			productRefGroup = 040D62DA1D36A990003F8D8E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				040D62D81D36A990003F8D8E /* Athlee-ImagePicker */,
+				040D62EC1D36A991003F8D8E /* Athlee-ImagePickerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		040D62D71D36A990003F8D8E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				040D62E71D36A990003F8D8E /* LaunchScreen.storyboard in Resources */,
+				040D62E41D36A990003F8D8E /* Assets.xcassets in Resources */,
+				040D62E21D36A990003F8D8E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		040D62EB1D36A991003F8D8E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		040D62D51D36A990003F8D8E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				040D63051D36AA54003F8D8E /* FloatingViewLayout.swift in Sources */,
+				040D62DF1D36A990003F8D8E /* ViewController.swift in Sources */,
+				040D62DD1D36A990003F8D8E /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		040D62E91D36A991003F8D8E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				040D62F21D36A991003F8D8E /* Athlee_ImagePickerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		040D62EF1D36A991003F8D8E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 040D62D81D36A990003F8D8E /* Athlee-ImagePicker */;
+			targetProxy = 040D62EE1D36A991003F8D8E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		040D62E01D36A990003F8D8E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				040D62E11D36A990003F8D8E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		040D62E51D36A990003F8D8E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				040D62E61D36A990003F8D8E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		040D62F41D36A991003F8D8E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		040D62F51D36A991003F8D8E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		040D62F71D36A991003F8D8E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Athlee-ImagePicker/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-ImagePicker";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		040D62F81D36A991003F8D8E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Athlee-ImagePicker/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-ImagePicker";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		040D62FA1D36A991003F8D8E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Athlee-ImagePickerTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-ImagePickerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Athlee-ImagePicker.app/Athlee-ImagePicker";
+			};
+			name = Debug;
+		};
+		040D62FB1D36A991003F8D8E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Athlee-ImagePickerTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-ImagePickerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Athlee-ImagePicker.app/Athlee-ImagePicker";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		040D62D41D36A990003F8D8E /* Build configuration list for PBXProject "Athlee-ImagePicker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				040D62F41D36A991003F8D8E /* Debug */,
+				040D62F51D36A991003F8D8E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		040D62F61D36A991003F8D8E /* Build configuration list for PBXNativeTarget "Athlee-ImagePicker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				040D62F71D36A991003F8D8E /* Debug */,
+				040D62F81D36A991003F8D8E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		040D62F91D36A991003F8D8E /* Build configuration list for PBXNativeTarget "Athlee-ImagePickerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				040D62FA1D36A991003F8D8E /* Debug */,
+				040D62FB1D36A991003F8D8E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 040D62D11D36A990003F8D8E /* Project object */;
+}
