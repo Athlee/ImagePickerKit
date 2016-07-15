@@ -42,6 +42,8 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable, 
   
   // MARK: FloatingViewLayout properties
   
+  var overlayBlurringView: UIView!
+  
   var topConstraint: NSLayoutConstraint {
     return parent.topConstraint
   }

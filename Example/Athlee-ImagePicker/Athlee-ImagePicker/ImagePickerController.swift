@@ -18,6 +18,8 @@ class ImagePickerController: UIViewController, FloatingViewLayout {
   
   // MARK: FloatingViewLayout properties
   
+  var overlayBlurringView: UIView!
+  
   var topConstraint: NSLayoutConstraint {
     return floatingTopConstraint
   }

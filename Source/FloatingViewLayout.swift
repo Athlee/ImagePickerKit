@@ -106,6 +106,9 @@ protocol FloatingViewLayout: class {
   /// outside of the floating view's frame.
   var allowPanOutside: Bool { get set }
   
+  /// A view that fades in on moving the floating view.
+  var overlayBlurringView: UIView! { get set }
+  
   /// Allows to make preparations before the movement is commited.
   func prepareForMovement()
   
@@ -225,6 +228,30 @@ extension FloatingViewLayout {
       print("Direction is not found yet!")
     }
     
+    
+    if overlayBlurringView == nil {
+      overlayBlurringView = UIView()
+      overlayBlurringView.backgroundColor = .blackColor()
+      overlayBlurringView.translatesAutoresizingMaskIntoConstraints = false
+      overlayBlurringView.alpha = 0
+      
+      view.addSubview(overlayBlurringView)
+      
+      let anchors = [
+        overlayBlurringView.topAnchor.constraintEqualToAnchor(view.topAnchor),
+        overlayBlurringView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor),
+        overlayBlurringView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor),
+        overlayBlurringView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor)
+        ].flatMap { $0 }
+      
+      NSLayoutConstraint.activateConstraints(anchors)
+    }
+    
+    let _progress = abs(topConstraint.constant / -(view.frame.height - visibleArea))
+    let progress = _progress > 0.6 ? 0.6 : _progress
+    overlayBlurringView.alpha = progress
+    
+    
     UIView.animateWithDuration(
       0.1,
       delay: 0,
@@ -262,7 +289,6 @@ extension FloatingViewLayout {
   /// - parameter view: The floating view that should be moved.
   ///
   func receivePanGesture(recognizer recognizer: UIPanGestureRecognizer, with view: UIView) {
-    print("State =\(state.description), frame = \(view.frame)")
     guard let superview = recognizer.view else {
       assertionFailure("Unable to find a registered view for UIPangestureRecognizer: \(recognizer).")
       return
@@ -327,6 +353,7 @@ extension FloatingViewLayout {
         options: [.AllowUserInteraction, .BeginFromCurrentState, .CurveEaseIn],
         animations: {
           view.superview?.layoutIfNeeded()
+          self.overlayBlurringView.alpha = self.closestState(of: view) == .Unfolded ? 0 : 0.6
         },
         completion: nil
       )
