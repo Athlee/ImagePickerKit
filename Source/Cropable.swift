@@ -51,6 +51,15 @@ protocol Cropable {
   /// Handles the end of zooming.
   ///
   func didEndZooming()
+  
+  ///
+  /// Highlights an area of cropping by showing
+  /// rectangular zone.
+  ///
+  /// - parameter highlght: A flag indicating whether it should show or hide the zone.
+  /// - parameter animated: An animation flag, it's `true` by default.
+  ///
+  func highlightArea(highlight: Bool, animated: Bool)
 }
 
 // MARK: - Default implementations for UIImageView childs 
@@ -105,6 +114,7 @@ extension Cropable where ChildView == UIImageView {
     childView.sizeToFit()
     cropView.contentSize = childView.image!.size
     updateContent()
+    highlightArea(false, animated: false)
   }
 }
 
@@ -160,15 +170,49 @@ extension Cropable {
   ///
   func didZoom() {
     centerContent()
+    highlightArea(true)
+  }
+  
+  ///
+  /// Handles the end of zooming.
+  ///
+  func didEndZooming() {
+    highlightArea(false)
+  }
+  
+  ///
+  /// Highlights an area of cropping by showing
+  /// rectangular zone.
+  ///
+  /// - parameter highlght: A flag indicating whether it should show or hide the zone.
+  /// - parameter animated: An animation flag, it's `true` by default.
+  ///
+  func highlightArea(highlight: Bool, animated: Bool = true) {
+    guard UIApplication.sharedApplication().keyWindow != nil else {
+      return
+    }
     
+    linesView.setNeedsDisplay()
     if linesView.superview == nil {
-      cropView.addSubview(linesView)
+      cropView.insertSubview(linesView, aboveSubview: childView)
       linesView.backgroundColor = UIColor.clearColor()
       linesView.alpha = 0
     } else {
-      UIView.animateWithDuration(0.3) {
-        self.linesView.alpha = 1
+      if animated {
+        UIView.animateWithDuration(
+          0.3,
+          delay: 0,
+          options: [.AllowUserInteraction],
+          animations: {
+            self.linesView.alpha = highlight ? 1 : 0
+          },
+          
+          completion: nil
+        )
+      } else {
+        linesView.alpha = highlight ? 1 : 0
       }
+
     }
     
     linesView.frame.size = CGSize(
@@ -179,14 +223,5 @@ extension Cropable {
     let visibleRect = CGRect(origin: cropView.contentOffset, size: cropView.bounds.size)
     let intersection = visibleRect.intersect(childView.frame)
     linesView.frame = intersection
-  }
-  
-  ///
-  /// Handles the end of zooming.
-  ///
-  func didEndZooming() {
-    UIView.animateWithDuration(0.1) {
-      self.linesView.alpha = 0
-    }
   }
 }
