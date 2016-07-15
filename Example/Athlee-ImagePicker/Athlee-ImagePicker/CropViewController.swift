@@ -42,6 +42,7 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable, 
   
   // MARK: FloatingViewLayout properties
   
+  var animationCompletion: ((Bool) -> Void)? 
   var overlayBlurringView: UIView!
   
   var topConstraint: NSLayoutConstraint {
@@ -97,6 +98,9 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable, 
       let checkPan = UIPanGestureRecognizer(target: self, action: #selector(CropViewController.didRecognizeCheckPan(_:)))
       floatingView.addGestureRecognizer(checkPan)
       checkPan.delegate = self
+      
+      let tapRec = UITapGestureRecognizer(target: self, action: #selector(CropViewController.didRecognizeTap(_:)))
+      floatingView.addGestureRecognizer(tapRec)
     }
   }
   
@@ -105,6 +109,12 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable, 
   }
   
   // MARK: IBActions
+  
+  @IBAction func didRecognizeTap(rec: UITapGestureRecognizer) {
+    if state == .Folded {
+      restore(view: floatingView, to: .Unfolded, animated: true)
+    }
+  }
   
   var zooming = false
   @IBAction func didRecognizeMainPan(rec: UIPanGestureRecognizer) {

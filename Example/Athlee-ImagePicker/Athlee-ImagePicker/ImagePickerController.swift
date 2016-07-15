@@ -18,6 +18,8 @@ class ImagePickerController: UIViewController, FloatingViewLayout {
   
   // MARK: FloatingViewLayout properties
   
+  var animationCompletion: ((Bool) -> Void)? = nil 
+  
   var overlayBlurringView: UIView!
   
   var topConstraint: NSLayoutConstraint {

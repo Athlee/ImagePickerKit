@@ -28,6 +28,8 @@
 		049AF4551D387EFC0097959B /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF4541D387EFC0097959B /* PhotoCell.swift */; };
 		049AF4571D387F2F0097959B /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF4561D387F2F0097959B /* PhotoViewController.swift */; };
 		049AF4591D387F840097959B /* ContainerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF4581D387F840097959B /* ContainerType.swift */; };
+		049AF45B1D38B8160097959B /* SelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF45A1D38B8160097959B /* SelectionViewController.swift */; };
+		049AF45D1D38BF670097959B /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF45C1D38BF670097959B /* UIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,8 @@
 		049AF4541D387EFC0097959B /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		049AF4561D387F2F0097959B /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		049AF4581D387F840097959B /* ContainerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerType.swift; sourceTree = "<group>"; };
+		049AF45A1D38B8160097959B /* SelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionViewController.swift; sourceTree = "<group>"; };
+		049AF45C1D38BF670097959B /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +137,7 @@
 				049AF44D1D38756F0097959B /* HolderViewController.swift */,
 				049AF44F1D3876050097959B /* CropViewController.swift */,
 				049AF4561D387F2F0097959B /* PhotoViewController.swift */,
+				049AF45A1D38B8160097959B /* SelectionViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -201,6 +206,7 @@
 				049AF4401D3875080097959B /* PhotoCachable.swift */,
 				049AF4411D3875080097959B /* PhotoFetchable.swift */,
 				049AF4421D3875080097959B /* UICollectionView.swift */,
+				049AF45C1D38BF670097959B /* UIView.swift */,
 			);
 			name = Source;
 			path = ../../Source;
@@ -328,6 +334,8 @@
 				049AF4441D3875080097959B /* CollectionViewChangeObserver.swift in Sources */,
 				049AF44A1D3875080097959B /* PhotoCachable.swift in Sources */,
 				049AF4451D3875080097959B /* Cropable.swift in Sources */,
+				049AF45D1D38BF670097959B /* UIView.swift in Sources */,
+				049AF45B1D38B8160097959B /* SelectionViewController.swift in Sources */,
 				049AF44E1D38756F0097959B /* HolderViewController.swift in Sources */,
 				049AF4571D387F2F0097959B /* PhotoViewController.swift in Sources */,
 				049AF44B1D3875080097959B /* PhotoFetchable.swift in Sources */,

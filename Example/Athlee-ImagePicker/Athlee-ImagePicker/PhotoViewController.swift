@@ -180,6 +180,15 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
       contentMode: .AspectFill,
       options: nil) { result, info in
         if info!["PHImageFileURLKey"] != nil  {
+          if let cropViewController = self.parent.cropViewController {
+            let floatingView = cropViewController.floatingView
+            cropViewController.restore(view: floatingView, to: .Unfolded, animated: true)
+            cropViewController.animationCompletion = { _ in
+              self.collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+              cropViewController.animationCompletion = nil
+            }
+          }
+          
           self.parent.image = result
         }
     }

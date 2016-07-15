@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RV3-m7-bnc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="NrL-F7-tW6">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -71,7 +72,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r4A-GL-Fcj" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="13" y="378"/>
+            <point key="canvasLocation" x="135" y="1059"/>
         </scene>
         <!--Select a photo-->
         <scene sceneID="AkM-OA-26p">
@@ -117,7 +118,11 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Select a photo" id="XoF-oe-f03">
-                        <barButtonItem key="rightBarButtonItem" title="Next" id="q5z-y5-lqS"/>
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="q5z-y5-lqS">
+                            <connections>
+                                <action selector="didPressNextButton:" destination="NuJ-YC-ihv" id="TeJ-R9-6s0"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="topConstraint" destination="QBi-oV-7Q6" id="rEd-yT-rTs"/>
@@ -132,6 +137,10 @@
         <scene sceneID="vzl-p7-u8j">
             <objects>
                 <viewController id="DMF-HH-l6u" customClass="CropViewController" customModule="Athlee_ImagePicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nvv-WP-wdx"/>
+                        <viewControllerLayoutGuide type="bottom" id="ubw-hf-T3R"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Yth-4Z-iq8">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -161,6 +170,10 @@
         <scene sceneID="Ari-qW-Aap">
             <objects>
                 <viewController id="UYi-EF-7Tb" customClass="PhotoViewController" customModule="Athlee_ImagePicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8Rr-lQ-Dlj"/>
+                        <viewControllerLayoutGuide type="bottom" id="i7D-3G-WCz"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="l6D-5p-JJY">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="235"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -220,6 +233,51 @@
             </objects>
             <point key="canvasLocation" x="1683" y="1006.5"/>
         </scene>
+        <!--Selection View Controller-->
+        <scene sceneID="F1Y-jP-aUQ">
+            <objects>
+                <viewController id="NrL-F7-tW6" customClass="SelectionViewController" customModule="Athlee_ImagePicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yHh-b1-HhK"/>
+                        <viewControllerLayoutGuide type="bottom" id="AZf-ZF-yaj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qYs-FN-3ue">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-user-image" translatesAutoresizingMaskIntoConstraints="NO" id="5BZ-Jd-2f0">
+                                <rect key="frame" x="180" y="28" width="240" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="5BZ-Jd-2f0" secondAttribute="height" multiplier="1:1" id="XFE-Mb-oB6"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Xr-S6-rd1">
+                                <rect key="frame" x="257" y="276" width="87" height="30"/>
+                                <state key="normal" title="Select photo"/>
+                                <connections>
+                                    <segue destination="RV3-m7-bnc" kind="presentation" id="7Tq-7W-voF"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5BZ-Jd-2f0" firstAttribute="top" secondItem="yHh-b1-HhK" secondAttribute="bottom" constant="8" id="0d9-zH-GqS"/>
+                            <constraint firstItem="8Xr-S6-rd1" firstAttribute="centerX" secondItem="5BZ-Jd-2f0" secondAttribute="centerX" id="UF9-am-lvi"/>
+                            <constraint firstItem="8Xr-S6-rd1" firstAttribute="top" secondItem="5BZ-Jd-2f0" secondAttribute="bottom" constant="8" id="etu-Ri-Qhs"/>
+                            <constraint firstItem="5BZ-Jd-2f0" firstAttribute="height" secondItem="qYs-FN-3ue" secondAttribute="height" multiplier="1/2.5" id="vzO-bl-eAE"/>
+                            <constraint firstItem="5BZ-Jd-2f0" firstAttribute="centerX" secondItem="qYs-FN-3ue" secondAttribute="centerX" id="zdX-fX-AHW"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="5BZ-Jd-2f0" id="WhF-u0-lGX"/>
+                        <segue destination="pIc-mG-Ep9" kind="unwind" unwindAction="prepareForUnwind:" id="vs7-P1-0qH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lCB-Ol-yGG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="pIc-mG-Ep9" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="135" y="378"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="2lj-CW-uWE">
             <objects>
@@ -239,4 +297,7 @@
             <point key="canvasLocation" x="871" y="378"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="default-user-image" width="256" height="256"/>
+    </resources>
 </document>

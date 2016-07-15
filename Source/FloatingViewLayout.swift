@@ -109,6 +109,9 @@ protocol FloatingViewLayout: class {
   /// A view that fades in on moving the floating view.
   var overlayBlurringView: UIView! { get set }
   
+  /// A completion for movement animation.
+  var animationCompletion: ((Bool) -> Void)? { get set }
+  
   /// Allows to make preparations before the movement is commited.
   func prepareForMovement()
   
@@ -132,13 +135,13 @@ protocol FloatingViewLayout: class {
   func receivePanGesture(recognizer recognizer: UIPanGestureRecognizer, with view: UIView)
   
   ///
-  /// Restores a given floating view to the certain state. 
-  /// Default implementation supports animations built-in.
-  /// 
-  /// - parameter view: The floating view. 
-  /// - parameter state: The state to change to. 
+  /// Restores a given floating view to the certain state.
   ///
-  func restore(view view: UIView, to state: State)
+  /// - parameter view: The floating view.
+  /// - parameter state: The state to change to.
+  /// - parameter animated: Indicates whether the transition should be animated or not. Default value is `false`.
+  ///
+  func restore(view view: UIView, to state: State, animated: Bool)
   
   ///
   /// Determines whether the floating view is moved enough
@@ -172,6 +175,24 @@ extension FloatingViewLayout {
       return .Unfolded
     }
   }
+  
+  func prepareOverlayBlurringViews(with view: UIView) {
+    overlayBlurringView = UIView()
+    overlayBlurringView.backgroundColor = .blackColor()
+    overlayBlurringView.translatesAutoresizingMaskIntoConstraints = false
+    overlayBlurringView.alpha = 0
+    
+    view.addSubview(overlayBlurringView)
+    
+    let anchors = [
+      overlayBlurringView.topAnchor.constraintEqualToAnchor(view.topAnchor),
+      overlayBlurringView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor),
+      overlayBlurringView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor),
+      overlayBlurringView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor)
+      ].flatMap { $0 }
+    
+    NSLayoutConstraint.activateConstraints(anchors)
+  }
 }
 
 //
@@ -179,6 +200,10 @@ extension FloatingViewLayout {
 //
 
 extension FloatingViewLayout {
+  // Default implementation. It is not required to implement this property.
+  var animationCompletion: ((Bool) -> Void)? {
+    return nil
+  }
   
   // Default implementation. It is not required to implement this method.
   func prepareForMovement() { }
@@ -191,12 +216,34 @@ extension FloatingViewLayout {
   ///
   /// - parameter view: The floating view.
   /// - parameter state: The state to change to.
+  /// - parameter animated: Indicates whether the transition should be animated or not. Default value is `false`.
   ///
-  func restore(view view: UIView, to state: State) {
+  func restore(view view: UIView, to state: State, animated: Bool = false) {
     if state == .Unfolded {
       topConstraint.constant = 0
     } else if state == .Folded {
       topConstraint.constant = -(view.frame.height - visibleArea)
+    }
+    
+    if animated {
+      if overlayBlurringView == nil {
+        prepareOverlayBlurringViews(with: view)
+      }
+      
+      UIView.animateWithDuration(
+        0.25,
+        delay: 0,
+        options: [.AllowUserInteraction, .BeginFromCurrentState, .CurveEaseIn],
+        animations: {
+          view.superview?.layoutIfNeeded()
+          self.overlayBlurringView.alpha = self.state == .Unfolded ? 0 : 0.6
+        },
+        
+        completion: { finished in
+          self.didEndMoving()
+          self.animationCompletion?(finished)
+        }
+      )
     }
   }
   
@@ -230,21 +277,7 @@ extension FloatingViewLayout {
     
     
     if overlayBlurringView == nil {
-      overlayBlurringView = UIView()
-      overlayBlurringView.backgroundColor = .blackColor()
-      overlayBlurringView.translatesAutoresizingMaskIntoConstraints = false
-      overlayBlurringView.alpha = 0
-      
-      view.addSubview(overlayBlurringView)
-      
-      let anchors = [
-        overlayBlurringView.topAnchor.constraintEqualToAnchor(view.topAnchor),
-        overlayBlurringView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor),
-        overlayBlurringView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor),
-        overlayBlurringView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor)
-        ].flatMap { $0 }
-      
-      NSLayoutConstraint.activateConstraints(anchors)
+      prepareOverlayBlurringViews(with: view)
     }
     
     let _progress = abs(topConstraint.constant / -(view.frame.height - visibleArea))
@@ -331,32 +364,21 @@ extension FloatingViewLayout {
       
       if abs(velocity.y) >= 1000.0 || crossedEnough(view: view, in: _direction) {
         if case .Up(_) = _direction {
-          restore(view: view, to: .Folded)
+          restore(view: view, to: .Folded, animated: true)
         } else if case .Down(_) = _direction {
-          restore(view: view, to: .Unfolded)
+          restore(view: view, to: .Unfolded, animated: true)
         } else {
-          restore(view: view, to: closestState(of: view))
+          restore(view: view, to: closestState(of: view), animated: true)
         }
       } else {
         if case .Up(_) = _direction {
-          restore(view: view, to: .Unfolded)
+          restore(view: view, to: .Unfolded, animated: true)
         } else if case .Down(_) = _direction {
-          restore(view: view, to: .Folded)
+          restore(view: view, to: .Folded, animated: true)
         } else {
-          restore(view: view, to: closestState(of: view))
+          restore(view: view, to: closestState(of: view), animated: true)
         }
       }
-
-      UIView.animateWithDuration(
-        0.25,
-        delay: 0,
-        options: [.AllowUserInteraction, .BeginFromCurrentState, .CurveEaseIn],
-        animations: {
-          view.superview?.layoutIfNeeded()
-          self.overlayBlurringView.alpha = self.closestState(of: view) == .Unfolded ? 0 : 0.6
-        },
-        completion: nil
-      )
     }
     
   }

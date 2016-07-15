@@ -10,8 +10,14 @@ import UIKit
 
 final class HolderViewController: UIViewController {
   
+  // MARK: Outlets 
+  
   @IBOutlet weak var topConstraint: NSLayoutConstraint!
   @IBOutlet weak var topContainer: UIView!
+  
+  // MARK: Properties 
+  
+  var selectionViewController: SelectionViewController!
   
   var cropViewController: CropViewController? {
     for child in childViewControllers {
@@ -34,6 +40,8 @@ final class HolderViewController: UIViewController {
     }
   }
   
+  // MARK: Life cycle
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -48,6 +56,15 @@ final class HolderViewController: UIViewController {
   
   override func prefersStatusBarHidden() -> Bool {
     return true
+  }
+  
+  // MARK: IBActions
+  
+  @IBAction func didPressNextButton(sender: AnyObject) {
+    navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    let image = topContainer.snapshot()
+    selectionViewController.imageView.image = image
+    selectionViewController = nil
   }
 
 }
