@@ -24,6 +24,8 @@ final class SelectionViewController: UIViewController {
     let dest = segue.destinationViewController
     if let dest = dest as? UINavigationController, holder = dest.topViewController as? HolderViewController {
       holder.selectionViewController = self
+    } else if let dest = dest as? CaptureViewController {
+      dest.selectionViewController = self
     }
   }
 

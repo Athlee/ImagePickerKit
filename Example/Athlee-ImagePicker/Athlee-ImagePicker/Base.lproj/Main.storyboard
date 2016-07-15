@@ -8,6 +8,87 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
+        <!--Capture View Controller-->
+        <scene sceneID="l1G-ae-ZNy">
+            <objects>
+                <viewController id="REc-DD-ijY" customClass="CaptureViewController" customModule="Athlee_ImagePicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gdX-hF-Y6S"/>
+                        <viewControllerLayoutGuide type="bottom" id="cyy-Wu-PMD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ICh-Ug-GGd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mQn-rc-HFW">
+                                <rect key="frame" x="1" y="0.0" width="600" height="300"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G3e-Md-03a">
+                                <rect key="frame" x="0.0" y="300" width="600" height="300"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nfF-Ee-PLk">
+                                        <rect key="frame" x="235" y="85" width="130" height="130"/>
+                                        <state key="normal" image="TakePhotoIcon"/>
+                                        <connections>
+                                            <action selector="didPressCapturePhoto:" destination="REc-DD-ijY" eventType="touchUpInside" id="E0a-ad-6Ra"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gsM-5Z-6Hl">
+                                        <rect key="frame" x="16" y="254" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="1Hf-c7-XK1"/>
+                                            <constraint firstAttribute="width" constant="30" id="gi5-4y-Fqs"/>
+                                        </constraints>
+                                        <state key="normal" image="FlipCamera"/>
+                                        <connections>
+                                            <action selector="didPressFlipButton:" destination="REc-DD-ijY" eventType="touchUpInside" id="eof-IA-SZN"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TkP-u1-YHM">
+                                        <rect key="frame" x="554" y="254" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="QrS-5e-jWF"/>
+                                            <constraint firstAttribute="height" constant="30" id="h6f-NJ-zh0"/>
+                                        </constraints>
+                                        <state key="normal" image="Flash"/>
+                                        <connections>
+                                            <action selector="didPressFlashButton:" destination="REc-DD-ijY" eventType="touchUpInside" id="wwK-tO-by3"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="nfF-Ee-PLk" firstAttribute="centerY" secondItem="G3e-Md-03a" secondAttribute="centerY" id="7E2-0D-ZS4"/>
+                                    <constraint firstItem="gsM-5Z-6Hl" firstAttribute="leading" secondItem="G3e-Md-03a" secondAttribute="leadingMargin" constant="8" id="7RL-rk-De0"/>
+                                    <constraint firstItem="nfF-Ee-PLk" firstAttribute="centerX" secondItem="G3e-Md-03a" secondAttribute="centerX" id="GOk-Ab-wRp"/>
+                                    <constraint firstItem="gsM-5Z-6Hl" firstAttribute="bottom" secondItem="G3e-Md-03a" secondAttribute="bottomMargin" constant="-8" id="ILX-en-EJm"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="TkP-u1-YHM" secondAttribute="bottom" constant="8" id="UQj-ZD-ogw"/>
+                                    <constraint firstItem="TkP-u1-YHM" firstAttribute="trailing" secondItem="G3e-Md-03a" secondAttribute="trailingMargin" constant="-8" id="tKo-MT-sJW"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="mQn-rc-HFW" secondAttribute="trailing" id="0Lo-3G-VKC"/>
+                            <constraint firstItem="G3e-Md-03a" firstAttribute="top" secondItem="mQn-rc-HFW" secondAttribute="bottom" id="4N0-eN-zgZ"/>
+                            <constraint firstItem="mQn-rc-HFW" firstAttribute="top" secondItem="ICh-Ug-GGd" secondAttribute="top" id="KSX-43-nWy"/>
+                            <constraint firstItem="mQn-rc-HFW" firstAttribute="leading" secondItem="ICh-Ug-GGd" secondAttribute="leading" id="KXQ-ej-hEf"/>
+                            <constraint firstItem="G3e-Md-03a" firstAttribute="leading" secondItem="ICh-Ug-GGd" secondAttribute="leading" id="LnG-5Q-Lm6"/>
+                            <constraint firstItem="cyy-Wu-PMD" firstAttribute="top" secondItem="G3e-Md-03a" secondAttribute="bottom" id="R69-DU-LsK"/>
+                            <constraint firstItem="mQn-rc-HFW" firstAttribute="height" secondItem="ICh-Ug-GGd" secondAttribute="height" multiplier="1/2" id="ew7-Sq-QJd"/>
+                            <constraint firstAttribute="trailing" secondItem="G3e-Md-03a" secondAttribute="trailing" id="hOL-lB-ztx"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cameraView" destination="mQn-rc-HFW" id="oVf-A8-hNg"/>
+                        <outlet property="flashButton" destination="TkP-u1-YHM" id="D4l-Z6-9lX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qy4-Zl-COK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="859" y="1125"/>
+        </scene>
         <!--Image Picker Controller-->
         <scene sceneID="Ll4-eh-g9d">
             <objects>
@@ -72,7 +153,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r4A-GL-Fcj" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="135" y="1059"/>
+            <point key="canvasLocation" x="135" y="1491"/>
         </scene>
         <!--Select a photo-->
         <scene sceneID="AkM-OA-26p">
@@ -258,13 +339,23 @@
                                     <segue destination="RV3-m7-bnc" kind="presentation" id="7Tq-7W-voF"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b0h-Xu-gfS">
+                                <rect key="frame" x="257" y="314" width="87" height="30"/>
+                                <state key="normal" title="Take photo"/>
+                                <connections>
+                                    <segue destination="REc-DD-ijY" kind="showDetail" id="D1H-aH-KTe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="5BZ-Jd-2f0" firstAttribute="top" secondItem="yHh-b1-HhK" secondAttribute="bottom" constant="8" id="0d9-zH-GqS"/>
                             <constraint firstItem="8Xr-S6-rd1" firstAttribute="centerX" secondItem="5BZ-Jd-2f0" secondAttribute="centerX" id="UF9-am-lvi"/>
                             <constraint firstItem="8Xr-S6-rd1" firstAttribute="top" secondItem="5BZ-Jd-2f0" secondAttribute="bottom" constant="8" id="etu-Ri-Qhs"/>
+                            <constraint firstItem="b0h-Xu-gfS" firstAttribute="leading" secondItem="8Xr-S6-rd1" secondAttribute="leading" id="qiv-EG-Ctk"/>
+                            <constraint firstItem="b0h-Xu-gfS" firstAttribute="top" secondItem="8Xr-S6-rd1" secondAttribute="bottom" constant="8" id="rHe-S5-abp"/>
                             <constraint firstItem="5BZ-Jd-2f0" firstAttribute="height" secondItem="qYs-FN-3ue" secondAttribute="height" multiplier="1/2.5" id="vzO-bl-eAE"/>
+                            <constraint firstItem="b0h-Xu-gfS" firstAttribute="trailing" secondItem="8Xr-S6-rd1" secondAttribute="trailing" id="yc7-uc-5H7"/>
                             <constraint firstItem="5BZ-Jd-2f0" firstAttribute="centerX" secondItem="qYs-FN-3ue" secondAttribute="centerX" id="zdX-fX-AHW"/>
                         </constraints>
                     </view>
@@ -298,6 +389,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Flash" width="10" height="20"/>
+        <image name="FlipCamera" width="20" height="19"/>
+        <image name="TakePhotoIcon" width="130" height="130"/>
         <image name="default-user-image" width="256" height="256"/>
     </resources>
 </document>

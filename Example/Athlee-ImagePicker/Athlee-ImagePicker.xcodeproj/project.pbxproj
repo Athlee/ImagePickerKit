@@ -13,6 +13,10 @@
 		040D62E41D36A990003F8D8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 040D62E31D36A990003F8D8E /* Assets.xcassets */; };
 		040D62E71D36A990003F8D8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040D62E51D36A990003F8D8E /* LaunchScreen.storyboard */; };
 		040D62F21D36A991003F8D8E /* Athlee_ImagePickerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D62F11D36A991003F8D8E /* Athlee_ImagePickerTests.swift */; };
+		041D01E31D398B1400D2EB81 /* Capturable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041D01E21D398B1400D2EB81 /* Capturable.swift */; };
+		041D01E51D398F0D00D2EB81 /* CaptureNotificationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041D01E41D398F0D00D2EB81 /* CaptureNotificationObserver.swift */; };
+		041D01E71D39910900D2EB81 /* CaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041D01E61D39910900D2EB81 /* CaptureViewController.swift */; };
+		041D01E91D39980700D2EB81 /* PhotoCapturable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041D01E81D39980700D2EB81 /* PhotoCapturable.swift */; };
 		049AF4431D3875080097959B /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF4391D3875080097959B /* CGRect.swift */; };
 		049AF4441D3875080097959B /* CollectionViewChangeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF43A1D3875080097959B /* CollectionViewChangeObserver.swift */; };
 		049AF4451D3875080097959B /* Cropable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF43B1D3875080097959B /* Cropable.swift */; };
@@ -53,6 +57,10 @@
 		040D62ED1D36A991003F8D8E /* Athlee-ImagePickerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Athlee-ImagePickerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		040D62F11D36A991003F8D8E /* Athlee_ImagePickerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Athlee_ImagePickerTests.swift; sourceTree = "<group>"; };
 		040D62F31D36A991003F8D8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		041D01E21D398B1400D2EB81 /* Capturable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Capturable.swift; sourceTree = "<group>"; };
+		041D01E41D398F0D00D2EB81 /* CaptureNotificationObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureNotificationObserver.swift; sourceTree = "<group>"; };
+		041D01E61D39910900D2EB81 /* CaptureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureViewController.swift; sourceTree = "<group>"; };
+		041D01E81D39980700D2EB81 /* PhotoCapturable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCapturable.swift; sourceTree = "<group>"; };
 		049AF4391D3875080097959B /* CGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		049AF43A1D3875080097959B /* CollectionViewChangeObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewChangeObserver.swift; sourceTree = "<group>"; };
 		049AF43B1D3875080097959B /* Cropable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cropable.swift; sourceTree = "<group>"; };
@@ -138,6 +146,7 @@
 				049AF44F1D3876050097959B /* CropViewController.swift */,
 				049AF4561D387F2F0097959B /* PhotoViewController.swift */,
 				049AF45A1D38B8160097959B /* SelectionViewController.swift */,
+				041D01E61D39910900D2EB81 /* CaptureViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -207,6 +216,9 @@
 				049AF4411D3875080097959B /* PhotoFetchable.swift */,
 				049AF4421D3875080097959B /* UICollectionView.swift */,
 				049AF45C1D38BF670097959B /* UIView.swift */,
+				041D01E21D398B1400D2EB81 /* Capturable.swift */,
+				041D01E81D39980700D2EB81 /* PhotoCapturable.swift */,
+				041D01E41D398F0D00D2EB81 /* CaptureNotificationObserver.swift */,
 			);
 			name = Source;
 			path = ../../Source;
@@ -324,14 +336,18 @@
 				049AF4491D3875080097959B /* NSIndexSet.swift in Sources */,
 				049AF4551D387EFC0097959B /* PhotoCell.swift in Sources */,
 				049AF4481D3875080097959B /* LinesView.swift in Sources */,
+				041D01E51D398F0D00D2EB81 /* CaptureNotificationObserver.swift in Sources */,
 				040D62DF1D36A990003F8D8E /* ImagePickerController.swift in Sources */,
+				041D01E91D39980700D2EB81 /* PhotoCapturable.swift in Sources */,
 				049AF4431D3875080097959B /* CGRect.swift in Sources */,
 				049AF4591D387F840097959B /* ContainerType.swift in Sources */,
+				041D01E71D39910900D2EB81 /* CaptureViewController.swift in Sources */,
 				049AF4471D3875080097959B /* FloatingViewLayout.swift in Sources */,
 				049AF4461D3875080097959B /* CropableScrollViewDelegate.swift in Sources */,
 				049AF4501D3876050097959B /* CropViewController.swift in Sources */,
 				049AF44C1D3875080097959B /* UICollectionView.swift in Sources */,
 				049AF4441D3875080097959B /* CollectionViewChangeObserver.swift in Sources */,
+				041D01E31D398B1400D2EB81 /* Capturable.swift in Sources */,
 				049AF44A1D3875080097959B /* PhotoCachable.swift in Sources */,
 				049AF4451D3875080097959B /* Cropable.swift in Sources */,
 				049AF45D1D38BF670097959B /* UIView.swift in Sources */,
