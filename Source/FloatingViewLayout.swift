@@ -71,6 +71,14 @@ enum Direction {
 }
 
 ///
+/// Options for floating dragging zone.
+///
+enum DraggingZone {
+  case All
+  case Some(CGFloat)
+}
+
+///
 /// The protocol allowing to move a certain view in its superview
 /// on pan gestures. The default implementation supports vertical 
 /// movement of a given view staying on the top of its superview.
@@ -79,6 +87,9 @@ protocol FloatingViewLayout: class {
   /// Determines the minimum area (height or width) to be visible
   /// when the floating view is folded.
   var visibleArea: CGFloat { get set }
+  
+  /// A zone allowed to drag on.
+  var draggingZone: DraggingZone { get set }
   
   /// The previous location of touch.
   var previousPoint: CGPoint? { get set }
@@ -97,6 +108,9 @@ protocol FloatingViewLayout: class {
   
   /// Allows to make preparations before the movement is commited.
   func prepareForMovement()
+  
+  /// This method is called every time the movement is ended.
+  func didEndMoving()
   
   ///
   /// Moves a view in a given direction with preset delta. 
@@ -166,6 +180,9 @@ extension FloatingViewLayout {
   // Default implementation. It is not required to implement this method.
   func prepareForMovement() { }
   
+  // Default implementation. It is not required to implement this method.
+  func didEndMoving() { }
+  
   ///
   /// Restores a given floating view to the certain state.
   ///
@@ -215,7 +232,9 @@ extension FloatingViewLayout {
       animations: {
         view.superview?.layoutIfNeeded()
       },
-      completion: nil
+      completion: { _ in
+        self.didEndMoving()
+      }
     )
   }
   
@@ -243,6 +262,7 @@ extension FloatingViewLayout {
   /// - parameter view: The floating view that should be moved.
   ///
   func receivePanGesture(recognizer recognizer: UIPanGestureRecognizer, with view: UIView) {
+    print("State =\(state.description), frame = \(view.frame)")
     guard let superview = recognizer.view else {
       assertionFailure("Unable to find a registered view for UIPangestureRecognizer: \(recognizer).")
       return
@@ -251,13 +271,18 @@ extension FloatingViewLayout {
     let location = recognizer.locationInView(superview)
     let velocity = recognizer.velocityInView(superview)
     
+    if case .Some(let height) = draggingZone where recognizer.state == .Began {
+      if location.y < view.frame.maxY - height {
+        return
+      }
+    }
+    
     guard recognizer.state != .Began else {
       previousPoint = location
       return
     }
     
     guard let previousPoint = previousPoint else {
-      assertionFailure("Previous point has been unexpectedly mutated!")
       return
     }
     

@@ -24,6 +24,14 @@ protocol Cropable {
   /// This view is shown when cropping is happening.
   var linesView: LinesView { get set }
   
+  /// Top offset for cropable content. If your `cropView`
+  /// is constrained with `UINavigationBar` or anything on 
+  /// the top, set this offset so the content can be properly
+  /// centered and scaled.
+  ///
+  /// Default value is `0.0`.
+  var topOffset: CGFloat { get }
+  
   ///
   /// Adds a cropable view with its content to the provided
   /// container view.
@@ -41,6 +49,26 @@ protocol Cropable {
   /// Centers a content view in its superview depending on the size.
   ///
   func centerContent()
+  
+  ///
+  /// This method is called whenever the zooming
+  /// is about to start. It might be useful if
+  /// you use a built-in `CropableScrollViewDelegate`.
+  ///
+  /// **ATTENTION**, default implementation
+  /// is a placeholder!
+  ///
+  func willZoom()
+  
+  ///
+  /// This method is called whenever the zooming
+  /// is about to end. It might be useful if
+  /// you use a built-in `CropableScrollViewDelegate`.
+  ///
+  /// **ATTENTION**, default implementation
+  /// is a placeholder!
+  ///
+  func willEndZooming() 
   
   ///
   /// Handles zoom gestures.
@@ -112,6 +140,7 @@ extension Cropable where ChildView == UIImageView {
   func addImage(image: UIImage) {
     childView.image = image
     childView.sizeToFit()
+    childView.frame.origin = .zero
     cropView.contentSize = childView.image!.size
     updateContent()
     highlightArea(false, animated: false)
@@ -121,6 +150,16 @@ extension Cropable where ChildView == UIImageView {
 // MARK: - Default implementations 
 
 extension Cropable {
+  /// Top offset for cropable content. If your `cropView`
+  /// is constrained with `UINavigationBar` or anything on
+  /// the top, set this offset so the content can be properly
+  /// centered and scaled.
+  ///
+  /// Default value is `0.0`.
+  var topOffset: CGFloat {
+    return 0
+  }
+  
   ///
   /// Updated the current cropable content area, zoom and scale.
   ///
@@ -129,13 +168,12 @@ extension Cropable {
     let scrollViewSize = cropView.superview!.frame
     let widthScale = scrollViewSize.width / childViewSize.width
     let heightScale = scrollViewSize.height / childViewSize.height
-    let scale = min(widthScale, heightScale)
+    let scale = min(heightScale, widthScale)
     
     if let _self = self as? UIScrollViewDelegate {
       cropView.delegate = _self
     }
     
-    cropView.userInteractionEnabled = true
     cropView.minimumZoomScale = scale
     cropView.maximumZoomScale = 4
     cropView.zoomScale = scale
@@ -148,22 +186,45 @@ extension Cropable {
   ///
   func centerContent() {
     let boundsSize = cropView.bounds.size
-    var contentFrame = childView.frame
+    let contentFrame = childView.frame
+    var origin = contentFrame.origin
     
     if contentFrame.size.width < boundsSize.width {
-      contentFrame.origin.x = (boundsSize.width - contentFrame.width) / 2
+      origin.x = (boundsSize.width - contentFrame.width) / 2
     } else {
-      contentFrame.origin.x = 0
+      origin.x = 0
     }
     
     if contentFrame.size.height < boundsSize.height {
-      contentFrame.origin.y = (boundsSize.height - contentFrame.height) / 2
+      origin.y = (boundsSize.height - contentFrame.height) / 2
     } else {
-      contentFrame.origin.y = 0
+      origin.y = 0
     }
     
-    childView.frame = contentFrame
+    origin.y -= topOffset
+    cropView.contentInset.bottom = -topOffset
+    childView.frame.origin = origin
   }
+  
+  ///
+  /// This method is called whenever the zooming
+  /// is about to start. It might be useful if 
+  /// you use a built-in `CropableScrollViewDelegate`.
+  ///
+  /// **ATTENTION**, default implementation
+  /// is a placeholder!
+  ///
+  func willZoom() { }
+  
+  ///
+  /// This method is called whenever the zooming
+  /// is about to end. It might be useful if
+  /// you use a built-in `CropableScrollViewDelegate`.
+  ///
+  /// **ATTENTION**, default implementation
+  /// is a placeholder!
+  ///
+  func willEndZooming() { }
   
   ///
   /// Handles zoom gestures.

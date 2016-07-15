@@ -22,6 +22,8 @@ class ImagePickerController: UIViewController, FloatingViewLayout {
     return floatingTopConstraint
   }
   
+  var draggingZone: DraggingZone = .All
+  
   var visibleArea: CGFloat = 80
   
   var previousPoint: CGPoint?

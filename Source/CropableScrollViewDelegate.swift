@@ -22,14 +22,17 @@ final class CropableScrollViewDelegate<T: Cropable where T: AnyObject>: NSObject
     self.cropable = cropable
   }
   
-  // MARK:
+  // MARK: UIScrollViewDelegate
+  
+  func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
+    cropable.willZoom()
+  }
+  
   func scrollViewDidZoom(scrollView: UIScrollView) {
     cropable.didZoom()
-    print(cropable.linesView.alpha)
   }
   
   func scrollViewDidScroll(scrollView: UIScrollView) {
-    print("Draggin=\(scrollView.dragging), decelerating=\(scrollView.decelerating)")
     guard panning else {
       return
     }
@@ -51,11 +54,8 @@ final class CropableScrollViewDelegate<T: Cropable where T: AnyObject>: NSObject
 
   }
   
-//  func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//    cropable.highlightArea(false)
-//  }
-  
   func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
+    cropable.willEndZooming()
     cropable.didEndZooming()
   }
   

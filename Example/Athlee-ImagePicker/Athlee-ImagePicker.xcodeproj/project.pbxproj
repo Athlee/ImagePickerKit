@@ -13,7 +13,21 @@
 		040D62E41D36A990003F8D8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 040D62E31D36A990003F8D8E /* Assets.xcassets */; };
 		040D62E71D36A990003F8D8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040D62E51D36A990003F8D8E /* LaunchScreen.storyboard */; };
 		040D62F21D36A991003F8D8E /* Athlee_ImagePickerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D62F11D36A991003F8D8E /* Athlee_ImagePickerTests.swift */; };
-		040D63051D36AA54003F8D8E /* FloatingViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D63041D36AA54003F8D8E /* FloatingViewLayout.swift */; };
+		049AF4431D3875080097959B /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF4391D3875080097959B /* CGRect.swift */; };
+		049AF4441D3875080097959B /* CollectionViewChangeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF43A1D3875080097959B /* CollectionViewChangeObserver.swift */; };
+		049AF4451D3875080097959B /* Cropable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF43B1D3875080097959B /* Cropable.swift */; };
+		049AF4461D3875080097959B /* CropableScrollViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF43C1D3875080097959B /* CropableScrollViewDelegate.swift */; };
+		049AF4471D3875080097959B /* FloatingViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF43D1D3875080097959B /* FloatingViewLayout.swift */; };
+		049AF4481D3875080097959B /* LinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF43E1D3875080097959B /* LinesView.swift */; };
+		049AF4491D3875080097959B /* NSIndexSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF43F1D3875080097959B /* NSIndexSet.swift */; };
+		049AF44A1D3875080097959B /* PhotoCachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF4401D3875080097959B /* PhotoCachable.swift */; };
+		049AF44B1D3875080097959B /* PhotoFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF4411D3875080097959B /* PhotoFetchable.swift */; };
+		049AF44C1D3875080097959B /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF4421D3875080097959B /* UICollectionView.swift */; };
+		049AF44E1D38756F0097959B /* HolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF44D1D38756F0097959B /* HolderViewController.swift */; };
+		049AF4501D3876050097959B /* CropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF44F1D3876050097959B /* CropViewController.swift */; };
+		049AF4551D387EFC0097959B /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF4541D387EFC0097959B /* PhotoCell.swift */; };
+		049AF4571D387F2F0097959B /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF4561D387F2F0097959B /* PhotoViewController.swift */; };
+		049AF4591D387F840097959B /* ContainerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AF4581D387F840097959B /* ContainerType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +51,21 @@
 		040D62ED1D36A991003F8D8E /* Athlee-ImagePickerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Athlee-ImagePickerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		040D62F11D36A991003F8D8E /* Athlee_ImagePickerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Athlee_ImagePickerTests.swift; sourceTree = "<group>"; };
 		040D62F31D36A991003F8D8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		040D63041D36AA54003F8D8E /* FloatingViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingViewLayout.swift; sourceTree = "<group>"; };
+		049AF4391D3875080097959B /* CGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
+		049AF43A1D3875080097959B /* CollectionViewChangeObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewChangeObserver.swift; sourceTree = "<group>"; };
+		049AF43B1D3875080097959B /* Cropable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cropable.swift; sourceTree = "<group>"; };
+		049AF43C1D3875080097959B /* CropableScrollViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropableScrollViewDelegate.swift; sourceTree = "<group>"; };
+		049AF43D1D3875080097959B /* FloatingViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingViewLayout.swift; sourceTree = "<group>"; };
+		049AF43E1D3875080097959B /* LinesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinesView.swift; sourceTree = "<group>"; };
+		049AF43F1D3875080097959B /* NSIndexSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSIndexSet.swift; sourceTree = "<group>"; };
+		049AF4401D3875080097959B /* PhotoCachable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCachable.swift; sourceTree = "<group>"; };
+		049AF4411D3875080097959B /* PhotoFetchable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoFetchable.swift; sourceTree = "<group>"; };
+		049AF4421D3875080097959B /* UICollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
+		049AF44D1D38756F0097959B /* HolderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HolderViewController.swift; sourceTree = "<group>"; };
+		049AF44F1D3876050097959B /* CropViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropViewController.swift; sourceTree = "<group>"; };
+		049AF4541D387EFC0097959B /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		049AF4561D387F2F0097959B /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
+		049AF4581D387F840097959B /* ContainerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +89,7 @@
 		040D62D01D36A990003F8D8E = {
 			isa = PBXGroup;
 			children = (
-				040D63031D36AA54003F8D8E /* Source */,
+				049AF4381D3875080097959B /* Source */,
 				040D62DB1D36A990003F8D8E /* Athlee-ImagePicker */,
 				040D62F01D36A991003F8D8E /* Athlee-ImagePickerTests */,
 				040D62DA1D36A990003F8D8E /* Products */,
@@ -102,6 +130,9 @@
 			isa = PBXGroup;
 			children = (
 				040D62DE1D36A990003F8D8E /* ImagePickerController.swift */,
+				049AF44D1D38756F0097959B /* HolderViewController.swift */,
+				049AF44F1D3876050097959B /* CropViewController.swift */,
+				049AF4561D387F2F0097959B /* PhotoViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -118,6 +149,7 @@
 		040D62FE1D36A9E4003F8D8E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				049AF4581D387F840097959B /* ContainerType.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -125,6 +157,7 @@
 		040D62FF1D36A9E9003F8D8E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				049AF4531D387EF60097959B /* Cells */,
 				040D63001D36A9F0003F8D8E /* Storyboards */,
 			);
 			name = Views;
@@ -155,13 +188,30 @@
 			name = Support;
 			sourceTree = "<group>";
 		};
-		040D63031D36AA54003F8D8E /* Source */ = {
+		049AF4381D3875080097959B /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				040D63041D36AA54003F8D8E /* FloatingViewLayout.swift */,
+				049AF4391D3875080097959B /* CGRect.swift */,
+				049AF43A1D3875080097959B /* CollectionViewChangeObserver.swift */,
+				049AF43B1D3875080097959B /* Cropable.swift */,
+				049AF43C1D3875080097959B /* CropableScrollViewDelegate.swift */,
+				049AF43D1D3875080097959B /* FloatingViewLayout.swift */,
+				049AF43E1D3875080097959B /* LinesView.swift */,
+				049AF43F1D3875080097959B /* NSIndexSet.swift */,
+				049AF4401D3875080097959B /* PhotoCachable.swift */,
+				049AF4411D3875080097959B /* PhotoFetchable.swift */,
+				049AF4421D3875080097959B /* UICollectionView.swift */,
 			);
 			name = Source;
 			path = ../../Source;
+			sourceTree = "<group>";
+		};
+		049AF4531D387EF60097959B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				049AF4541D387EFC0097959B /* PhotoCell.swift */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,8 +315,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				040D63051D36AA54003F8D8E /* FloatingViewLayout.swift in Sources */,
+				049AF4491D3875080097959B /* NSIndexSet.swift in Sources */,
+				049AF4551D387EFC0097959B /* PhotoCell.swift in Sources */,
+				049AF4481D3875080097959B /* LinesView.swift in Sources */,
 				040D62DF1D36A990003F8D8E /* ImagePickerController.swift in Sources */,
+				049AF4431D3875080097959B /* CGRect.swift in Sources */,
+				049AF4591D387F840097959B /* ContainerType.swift in Sources */,
+				049AF4471D3875080097959B /* FloatingViewLayout.swift in Sources */,
+				049AF4461D3875080097959B /* CropableScrollViewDelegate.swift in Sources */,
+				049AF4501D3876050097959B /* CropViewController.swift in Sources */,
+				049AF44C1D3875080097959B /* UICollectionView.swift in Sources */,
+				049AF4441D3875080097959B /* CollectionViewChangeObserver.swift in Sources */,
+				049AF44A1D3875080097959B /* PhotoCachable.swift in Sources */,
+				049AF4451D3875080097959B /* Cropable.swift in Sources */,
+				049AF44E1D38756F0097959B /* HolderViewController.swift in Sources */,
+				049AF4571D387F2F0097959B /* PhotoViewController.swift in Sources */,
+				049AF44B1D3875080097959B /* PhotoFetchable.swift in Sources */,
 				040D62DD1D36A990003F8D8E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -457,6 +521,7 @@
 				040D62F81D36A991003F8D8E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		040D62F91D36A991003F8D8E /* Build configuration list for PBXNativeTarget "Athlee-ImagePickerTests" */ = {
 			isa = XCConfigurationList;
@@ -465,6 +530,7 @@
 				040D62FB1D36A991003F8D8E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
