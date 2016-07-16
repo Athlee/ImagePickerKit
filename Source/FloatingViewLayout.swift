@@ -256,7 +256,8 @@ extension FloatingViewLayout {
   func move(view view: UIView, in direction: Direction) {
     switch direction {
     case .Up(let delta):
-      guard (topConstraint.constant + view.frame.height) + delta >= visibleArea else {
+      let maxY = (topConstraint.constant + view.frame.height)
+      guard maxY + delta >= visibleArea else {
         //restore(view: view, to: .Folded)
         return
       }
@@ -264,7 +265,8 @@ extension FloatingViewLayout {
       prepareForMovement()
       topConstraint.constant += delta
     case .Down(let delta):
-      guard topConstraint.constant + delta <= 0 else {
+      let minY = topConstraint.constant
+      guard minY + delta <= 0 else {
         //restore(view: view, to: .Unfolded)
         return
       }
