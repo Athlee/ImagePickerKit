@@ -50,9 +50,9 @@ final class CaptureViewController: UIViewController, PhotoCapturable {
       case .On:
         flashButton.setImage(UIImage(named: "Flash"), forState: .Normal)
       case .Off:
-        flashButton.setImage(UIImage(named: "Flash"), forState: .Normal)
+        flashButton.setImage(UIImage(named: "FlashOff"), forState: .Normal)
       case .Auto:
-        flashButton.setImage(UIImage(named: "Flash"), forState: .Normal)
+        flashButton.setImage(UIImage(named: "FlashAuto"), forState: .Normal)
       }
       
       setFlashMode(flashMode)

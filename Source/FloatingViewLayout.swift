@@ -256,7 +256,7 @@ extension FloatingViewLayout {
   func move(view view: UIView, in direction: Direction) {
     switch direction {
     case .Up(let delta):
-      guard view.frame.maxY + delta >= visibleArea else {
+      guard (topConstraint.constant + view.frame.height) + delta >= visibleArea else {
         //restore(view: view, to: .Folded)
         return
       }
@@ -264,7 +264,7 @@ extension FloatingViewLayout {
       prepareForMovement()
       topConstraint.constant += delta
     case .Down(let delta):
-      guard view.frame.minY + delta <= 0 else {
+      guard topConstraint.constant + delta <= 0 else {
         //restore(view: view, to: .Unfolded)
         return
       }
@@ -284,18 +284,19 @@ extension FloatingViewLayout {
     let progress = _progress > 0.6 ? 0.6 : _progress
     overlayBlurringView.alpha = progress
     
+    didEndMoving()
     
-    UIView.animateWithDuration(
-      0.1,
-      delay: 0,
-      options: [.AllowUserInteraction, .BeginFromCurrentState, .CurveEaseIn],
-      animations: {
-        view.superview?.layoutIfNeeded()
-      },
-      completion: { _ in
-        self.didEndMoving()
-      }
-    )
+//    UIView.animateWithDuration(
+//      0.1,
+//      delay: 0,
+//      options: [.AllowUserInteraction, .BeginFromCurrentState, .CurveEaseIn],
+//      animations: {
+//        view.superview?.layoutIfNeeded()
+//      },
+//      completion: { _ in
+//        self.didEndMoving()
+//      }
+//    )
   }
   
   ///
