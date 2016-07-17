@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-final class CaptureViewController: UIViewController, PhotoCapturable {
+final class CaptureViewController: UIViewController, PhotoCapturable, ContainerType {
 
   // MARK: Outlets
   
@@ -42,7 +42,7 @@ final class CaptureViewController: UIViewController, PhotoCapturable {
   
   // MARK: Properties
   
-  weak var selectionViewController: SelectionViewController!
+  var parent: SelectionViewController!
   
   var flashMode: AVCaptureFlashMode = .On {
     didSet {
@@ -93,8 +93,9 @@ final class CaptureViewController: UIViewController, PhotoCapturable {
   
   @IBAction func didPressCapturePhoto(sender: AnyObject) {
     captureStillImage { image in
-      self.selectionViewController.imageView.image = image
+      self.parent.imageView.image = image
       self.dismissViewControllerAnimated(true, completion: nil)
+      self.parent = nil 
     }
   }
   

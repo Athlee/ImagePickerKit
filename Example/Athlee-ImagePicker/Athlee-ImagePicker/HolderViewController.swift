@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class HolderViewController: UIViewController {
+final class HolderViewController: UIViewController, ContainerType {
   
   // MARK: Outlets 
   
@@ -17,17 +17,10 @@ final class HolderViewController: UIViewController {
   
   // MARK: Properties 
   
-  var selectionViewController: SelectionViewController!
+  var parent: SelectionViewController!
   
-  var cropViewController: CropViewController? {
-    for child in childViewControllers {
-      if let child = child as? CropViewController {
-        return child
-      }
-    }
-    
-    return nil
-  }
+  var cropViewController: CropViewController!
+  var photoViewController: PhotoViewController!
   
   var image: UIImage? {
     didSet {
@@ -47,8 +40,10 @@ final class HolderViewController: UIViewController {
     
     for child in childViewControllers {
       if let child = child as? CropViewController {
+        cropViewController = child
         child.parent = self
       } else if let child = child as? PhotoViewController {
+        photoViewController = child
         child.parent = self 
       }
     }
@@ -63,8 +58,8 @@ final class HolderViewController: UIViewController {
   @IBAction func didPressNextButton(sender: AnyObject) {
     navigationController?.dismissViewControllerAnimated(true, completion: nil)
     let image = topContainer.snapshot()
-    selectionViewController.imageView.image = image
-    selectionViewController = nil
+    parent.imageView.image = image
+    parent = nil
   }
 
 }

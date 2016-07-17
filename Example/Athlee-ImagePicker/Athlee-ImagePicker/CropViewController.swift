@@ -86,7 +86,6 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable, 
     super.viewDidAppear(animated)
     
     updateContent()
-    centerContent()
     
     if !recognizersAdded {
       recognizersAdded = true
@@ -117,17 +116,30 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable, 
   }
   
   var zooming = false
+  var checking = false
+  var offset: CGFloat = 0 {
+    didSet {
+      if offset < 0 && state == .Moved {
+        offset = 0
+      }
+    }
+  }
+  
   @IBAction func didRecognizeMainPan(rec: UIPanGestureRecognizer) {
     guard !zooming else { return }
+    
+    if state == .Unfolded {
+      allowPanOutside = false
+    }
+    
     receivePanGesture(recognizer: rec, with: floatingView)
-    //tableView.scrollEnabled = true
-    allowPanOutside = false
+    
+    updatePhotoCollectionViewScrolling()
   }
   
   @IBAction func didRecognizeCheckPan(rec: UIPanGestureRecognizer) {
     guard !zooming else { return }
     allowPanOutside = true
-    //tableView.resignFirstResponder()
   }
   
   // MARK: FloatingViewLayout methods
@@ -145,6 +157,14 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable, 
       cropView.userInteractionEnabled = false
     } else {
       cropView.userInteractionEnabled = true
+    }
+  }
+  
+  func updatePhotoCollectionViewScrolling() {
+    if state == .Moved {
+      parent.photoViewController.collectionView.contentOffset.y = offset
+    } else {
+      offset = parent.photoViewController.collectionView.contentOffset.y
     }
   }
   

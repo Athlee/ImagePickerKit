@@ -179,6 +179,8 @@ extension Cropable {
     cropView.zoomScale = scale
     
     centerContent()
+    
+    highlightArea(false, animated: false)
   }
   
   ///
