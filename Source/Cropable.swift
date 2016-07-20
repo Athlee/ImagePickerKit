@@ -190,6 +190,7 @@ extension Cropable {
     let boundsSize = cropView.bounds.size
     let contentFrame = childView.frame
     var origin = contentFrame.origin
+    var size = contentFrame.size
     
     if contentFrame.size.width < boundsSize.width {
       origin.x = (boundsSize.width - contentFrame.width) / 2
@@ -203,14 +204,17 @@ extension Cropable {
       origin.y = 0
     }
     
+
+    
     origin.y -= topOffset
     cropView.contentInset.bottom = -topOffset
     childView.frame.origin = origin
+    childView.frame.size = size
   }
   
   ///
   /// This method is called whenever the zooming
-  /// is about to start. It might be useful if 
+  /// is about to start. It might be useful if
   /// you use a built-in `CropableScrollViewDelegate`.
   ///
   /// **ATTENTION**, default implementation

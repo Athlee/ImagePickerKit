@@ -95,7 +95,7 @@ final class CaptureViewController: UIViewController, PhotoCapturable, ContainerT
     captureStillImage { image in
       self.parent.imageView.image = image
       self.dismissViewControllerAnimated(true, completion: nil)
-      self.parent = nil 
+      self.parent = nil
     }
   }
   
