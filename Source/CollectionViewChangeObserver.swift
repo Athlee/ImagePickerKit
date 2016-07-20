@@ -13,12 +13,12 @@ import Photos
 /// A default implementation for `PHPhotoLibraryChangeObserver` 
 /// protocol observer object.
 ///
-final class CollectionViewChangeObserver: NSObject {
-  let collectionView: UICollectionView
+public final class CollectionViewChangeObserver: NSObject {
+  public let collectionView: UICollectionView
   
-  unowned var source: protocol<PhotoFetchable, PhotoCachable>
+  internal unowned var source: protocol<PhotoFetchable, PhotoCachable>
   
-  init(collectionView: UICollectionView, source: protocol<PhotoFetchable, PhotoCachable>) {
+  public init(collectionView: UICollectionView, source: protocol<PhotoFetchable, PhotoCachable>) {
     self.collectionView = collectionView
     self.source = source
   }
@@ -27,7 +27,7 @@ final class CollectionViewChangeObserver: NSObject {
 // MARK: - PHPhotoLibraryChangeObserver
 
 extension CollectionViewChangeObserver: PHPhotoLibraryChangeObserver {
-  func photoLibraryDidChange(changeInstance: PHChange) {
+  public func photoLibraryDidChange(changeInstance: PHChange) {
     dispatch_async(dispatch_get_main_queue()) {
       guard let collectionChanges = changeInstance.changeDetailsForFetchResult(self.source.fetchResult) else {
         return

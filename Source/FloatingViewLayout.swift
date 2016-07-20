@@ -14,7 +14,7 @@ import UIKit
 /// - Folded: the visible area is shown.
 /// - Moved: the floating view is moved.
 ///
-enum State {
+public enum State {
   case Unfolded
   case Folded
   case Moved
@@ -36,7 +36,7 @@ enum State {
 /// and current touch points as an associated value. Note, that this value
 /// type supports only vertical states for now.
 ///
-enum Direction {
+public enum Direction {
   case Up(delta: CGFloat)
   case Down(delta: CGFloat)
   case None
@@ -73,7 +73,7 @@ enum Direction {
 ///
 /// Options for floating dragging zone.
 ///
-enum DraggingZone {
+public enum DraggingZone {
   case All
   case Some(CGFloat)
 }
@@ -83,7 +83,7 @@ enum DraggingZone {
 /// on pan gestures. The default implementation supports vertical 
 /// movement of a given view staying on the top of its superview.
 ///
-protocol FloatingViewLayout: class {
+public protocol FloatingViewLayout: class {
   /// Determines the minimum area (height or width) to be visible
   /// when the floating view is folded.
   var visibleArea: CGFloat { get set }

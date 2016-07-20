@@ -12,7 +12,7 @@ import Photos
 ///
 /// Provides photos' fetching features.
 ///
-protocol PhotoFetchable {
+public protocol PhotoFetchable {
   /// Current fetch result object.
   var fetchResult: PHFetchResult { get set }
   

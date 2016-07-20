@@ -12,7 +12,7 @@ import Photos
 ///
 /// Provides caching capabilities.
 ///
-protocol PhotoCachable: class {
+public protocol PhotoCachable: class {
   /// A caching image manager doing all the job.
   var cachingImageManager: PHCachingImageManager { get set }
   

@@ -11,7 +11,7 @@ import UIKit
 ///
 /// A protocol providing zooming features to crop the content.
 ///
-protocol Cropable {
+public protocol Cropable {
   /// A type for content view.
   associatedtype ChildView: UIView
   

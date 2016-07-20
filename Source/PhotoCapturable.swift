@@ -12,7 +12,7 @@ import AVFoundation
 ///
 /// Provides still image capturing features.
 ///
-protocol PhotoCapturable: Capturable {
+public protocol PhotoCapturable: Capturable {
   ///
   /// Captures a still image from the current input. 
   ///

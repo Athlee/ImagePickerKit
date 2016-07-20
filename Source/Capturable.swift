@@ -13,7 +13,7 @@ import AVFoundation
 /// Provides featrues for previewing and capturing
 /// using a device camera.
 ///
-protocol Capturable: class {
+public protocol Capturable: class {
   
   /// Current capture session.
   var session: AVCaptureSession? { get set }

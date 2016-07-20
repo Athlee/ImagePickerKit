@@ -12,13 +12,13 @@ import UIKit
 /// Draws the horizontal and vertical lines to show
 /// that a cropping is happening right now.
 ///
-final class LinesView: UIView {
-  var lines = 3 { didSet { setNeedsDisplay() } }
-  var columns = 3 { didSet { setNeedsDisplay() } }
-  var width: CGFloat = 1 { didSet { setNeedsDisplay() } }
-  var color = UIColor.whiteColor() { didSet { setNeedsDisplay() } }
+public final class LinesView: UIView {
+  public var lines = 3 { didSet { setNeedsDisplay() } }
+  public var columns = 3 { didSet { setNeedsDisplay() } }
+  public var width: CGFloat = 1 { didSet { setNeedsDisplay() } }
+  public var color = UIColor.whiteColor() { didSet { setNeedsDisplay() } }
   
-  override func drawRect(rect: CGRect) {
+  override public func drawRect(rect: CGRect) {
     let verticalSpace = rect.height / CGFloat(lines)
     let horizontalSpace = rect.width / CGFloat(columns)
     
