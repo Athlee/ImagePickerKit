@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
 s.name         = "ImagePickerKit"
-s.version      = "0.1.0"
+s.version      = "0.2.1"
 s.summary      = "ImagePickerKit is a protocol-oriented framework that provides handly features to dealing with picking or taking a photo!"
 s.homepage     = "https://github.com/Athlee/ImagePickerKit"
 s.license      = { :type => "MIT", :file => "LICENSE" }
@@ -12,5 +12,4 @@ s.ios.deployment_target = "9.0"
 s.source       = { :git => "https://github.com/Athlee/ImagePickerKit.git", :tag => s.version }
 s.source_files  = "Source/*.swift"
 s.requires_arc = true
-
 end
