@@ -25,12 +25,17 @@ protocol Cropable {
   var linesView: LinesView { get set }
   
   /// Top offset for cropable content. If your `cropView`
-  /// is constrained with `UINavigationBar` or anything on 
+  /// is constrained with `UINavigationBar` or anything on
   /// the top, set this offset so the content can be properly
   /// centered and scaled.
   ///
   /// Default value is `0.0`.
   var topOffset: CGFloat { get }
+  
+  /// Determines whether the guidelines' grid should be
+  /// constantly showing on the cropping view.
+  /// Default value is `false`.
+  var alwaysShowGuidelines: Bool { get }
   
   ///
   /// Adds a cropable view with its content to the provided
@@ -68,7 +73,7 @@ protocol Cropable {
   /// **ATTENTION**, default implementation
   /// is a placeholder!
   ///
-  func willEndZooming() 
+  func willEndZooming()
   
   ///
   /// Handles zoom gestures.
@@ -90,7 +95,7 @@ protocol Cropable {
   func highlightArea(highlight: Bool, animated: Bool)
 }
 
-// MARK: - Default implementations for UIImageView childs 
+// MARK: - Default implementations for UIImageView childs
 
 extension Cropable where ChildView == UIImageView {
   ///
@@ -125,7 +130,7 @@ extension Cropable where ChildView == UIImageView {
   /// container view.
   ///
   /// - parameter view: A container view.
-  /// - parameter image: An image to use. 
+  /// - parameter image: An image to use.
   ///
   func addCropable(to view: UIView, with image: UIImage) {
     addCropable(to: view)
@@ -135,19 +140,24 @@ extension Cropable where ChildView == UIImageView {
   ///
   /// Adds an image to the UIImageView child view.
   ///
-  /// - parameter image: An image to use. 
+  /// - parameter image: An image to use.
+  /// - parameter adjustingContent: Indicates whether the content should be adjusted or not. Default value is `true`.
   ///
-  func addImage(image: UIImage) {
+  func addImage(image: UIImage, adjustingContent: Bool = true) {
     childView.image = image
-    childView.sizeToFit()
-    childView.frame.origin = .zero
-    cropView.contentSize = childView.image!.size
-    updateContent()
-    highlightArea(false, animated: false)
+    
+    if adjustingContent {
+      childView.sizeToFit()
+      childView.frame.origin = .zero
+      cropView.contentSize = childView.image!.size
+      
+      updateContent()
+      highlightArea(false, animated: false)
+    }
   }
 }
 
-// MARK: - Default implementations 
+// MARK: - Default implementations
 
 extension Cropable {
   /// Top offset for cropable content. If your `cropView`
@@ -158,6 +168,13 @@ extension Cropable {
   /// Default value is `0.0`.
   var topOffset: CGFloat {
     return 0
+  }
+  
+  /// Determines whether the guidelines' grid should be
+  /// constantly showing on the cropping view.
+  /// Default value is `false`.
+  var alwaysShowGuidelines: Bool {
+    return false
   }
   
   ///
@@ -180,7 +197,7 @@ extension Cropable {
     
     centerContent()
     
-    highlightArea(false, animated: false)
+    highlightArea(alwaysShowGuidelines, animated: false)
   }
   
   ///
@@ -190,7 +207,6 @@ extension Cropable {
     let boundsSize = cropView.bounds.size
     let contentFrame = childView.frame
     var origin = contentFrame.origin
-    var size = contentFrame.size
     
     if contentFrame.size.width < boundsSize.width {
       origin.x = (boundsSize.width - contentFrame.width) / 2
@@ -204,12 +220,9 @@ extension Cropable {
       origin.y = 0
     }
     
-
-    
     origin.y -= topOffset
     cropView.contentInset.bottom = -topOffset
     childView.frame.origin = origin
-    childView.frame.size = size
   }
   
   ///
@@ -244,6 +257,7 @@ extension Cropable {
   /// Handles the end of zooming.
   ///
   func didEndZooming() {
+    guard !alwaysShowGuidelines else { return }
     highlightArea(false)
   }
   
@@ -279,7 +293,7 @@ extension Cropable {
       } else {
         linesView.alpha = highlight ? 1 : 0
       }
-
+      
     }
     
     linesView.frame.size = CGSize(
@@ -292,3 +306,4 @@ extension Cropable {
     linesView.frame = intersection
   }
 }
+

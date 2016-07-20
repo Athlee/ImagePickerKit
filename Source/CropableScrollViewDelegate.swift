@@ -33,6 +33,10 @@ final class CropableScrollViewDelegate<T: Cropable where T: AnyObject>: NSObject
   }
   
   func scrollViewDidScroll(scrollView: UIScrollView) {
+    if cropable.alwaysShowGuidelines {
+      cropable.highlightArea(true)
+    }
+    
     guard panning else {
       return
     }
@@ -47,11 +51,16 @@ final class CropableScrollViewDelegate<T: Cropable where T: AnyObject>: NSObject
   
   func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
     panning = false
-    cropable.highlightArea(false, animated: !decelerate)
+    
+    if cropable.alwaysShowGuidelines {
+      cropable.highlightArea(true, animated: false)
+    } else {
+      cropable.highlightArea(false, animated: !decelerate)
+    }
   }
   
   func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-
+    
   }
   
   func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
