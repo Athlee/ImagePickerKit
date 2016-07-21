@@ -97,7 +97,7 @@ public protocol Cropable {
 
 // MARK: - Default implementations for UIImageView childs
 
-extension Cropable where ChildView == UIImageView {
+public extension Cropable where ChildView == UIImageView {
   ///
   /// Adds a cropable view with its content to the provided
   /// container view.
@@ -159,7 +159,7 @@ extension Cropable where ChildView == UIImageView {
 
 // MARK: - Default implementations
 
-extension Cropable {
+public extension Cropable {
   /// Top offset for cropable content. If your `cropView`
   /// is constrained with `UINavigationBar` or anything on
   /// the top, set this offset so the content can be properly

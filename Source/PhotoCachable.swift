@@ -43,7 +43,7 @@ public protocol PhotoCachable: class {
 
 // MARK: - Default implementations 
 
-extension PhotoCachable {
+public extension PhotoCachable {
   ///
   /// Resets all cached assets.
   ///
@@ -93,9 +93,9 @@ extension PhotoCachable {
   }
 }
 
-// MARK: - Helpers
+// MARK: - Util methods 
 
-extension PhotoCachable {
+public extension PhotoCachable {
   ///
   /// Collects assets with provided index paths in the fetch result.
   ///

@@ -18,7 +18,7 @@ public final class CropableScrollViewDelegate<T: Cropable where T: AnyObject>: N
   
   private var panning = false
   
-  init(cropable: T) {
+  public init(cropable: T) {
     self.cropable = cropable
   }
   

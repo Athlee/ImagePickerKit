@@ -102,7 +102,7 @@ public protocol Capturable: class {
 
 // MARK: - Default implementations
 
-extension Capturable {
+public extension Capturable {
   
   ///
   /// Provides all necessary preparations for
@@ -334,7 +334,7 @@ extension Capturable {
 
 // MARK: - Internal helpers 
 
-extension Capturable {
+internal extension Capturable {
   ///
   /// Returns `true` if a user has given access to the camera.
   ///

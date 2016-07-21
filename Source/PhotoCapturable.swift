@@ -23,7 +23,7 @@ public protocol PhotoCapturable: Capturable {
 
 // MARK: - Default implementations 
 
-extension PhotoCapturable {
+public extension PhotoCapturable {
   
   ///
   /// Captures a still image from the current input.

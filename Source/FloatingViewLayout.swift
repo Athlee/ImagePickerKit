@@ -157,7 +157,7 @@ public protocol FloatingViewLayout: class {
 // MARK: - Helpers
 //
 
-extension FloatingViewLayout {
+internal extension FloatingViewLayout {
   func direction(withVelocity velocity: CGPoint, delta: CGFloat) -> Direction {
     if velocity.y < 0 {
       return Direction.Up(delta: delta)
@@ -199,7 +199,7 @@ extension FloatingViewLayout {
 // MARK: - Default implmenetations
 //
 
-extension FloatingViewLayout {
+public extension FloatingViewLayout {
   // Default implementation. It is not required to implement this property.
   var animationCompletion: ((Bool) -> Void)? {
     return nil
