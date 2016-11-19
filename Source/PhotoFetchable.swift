@@ -14,7 +14,7 @@ import Photos
 ///
 public protocol PhotoFetchable {
   /// Current fetch result object.
-  var fetchResult: PHFetchResult { get set }
+  var fetchResult: PHFetchResult<PHAsset> { get set }
   
   ///
   /// Checks if a user has given permission to use

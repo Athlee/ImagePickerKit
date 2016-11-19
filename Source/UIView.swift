@@ -11,10 +11,10 @@ import UIKit
 internal extension UIView {
   func snapshot() -> UIImage {
     UIGraphicsBeginImageContextWithOptions(frame.size, true, 0)
-    drawViewHierarchyInRect(bounds, afterScreenUpdates: false)
+    drawHierarchy(in: bounds, afterScreenUpdates: false)
     let image = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     
-    return image
+    return image!
   }
 }

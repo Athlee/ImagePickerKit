@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class HolderViewController: UIViewController, ContainerType {
+final class HolderViewController: UIViewController {
   
   // MARK: Outlets 
   
@@ -17,7 +17,7 @@ final class HolderViewController: UIViewController, ContainerType {
   
   // MARK: Properties 
   
-  var parent: SelectionViewController!
+  var _parent: SelectionViewController!
   
   var cropViewController: CropViewController!
   var photoViewController: PhotoViewController!
@@ -41,25 +41,25 @@ final class HolderViewController: UIViewController, ContainerType {
     for child in childViewControllers {
       if let child = child as? CropViewController {
         cropViewController = child
-        child.parent = self
+        child._parent = self
       } else if let child = child as? PhotoViewController {
         photoViewController = child
-        child.parent = self 
+        child._parent = self
       }
     }
   }
   
-  override func prefersStatusBarHidden() -> Bool {
+  override var prefersStatusBarHidden : Bool {
     return true
   }
   
   // MARK: IBActions
   
-  @IBAction func didPressNextButton(sender: AnyObject) {
-    navigationController?.dismissViewControllerAnimated(true, completion: nil)
+  @IBAction func didPressNextButton(_ sender: AnyObject) {
+    navigationController?.dismiss(animated: true, completion: nil)
     let image = topContainer.snapshot()
-    parent.imageView.image = image
-    parent = nil
+    _parent.imageView.image = image
+    _parent = nil
   }
 
 }

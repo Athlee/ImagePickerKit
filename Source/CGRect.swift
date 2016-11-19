@@ -10,12 +10,12 @@ import UIKit
 
 internal extension CGRect {
   enum Difference {
-    case Added(area: CGRect)
-    case Removed(area: CGRect)
+    case added(area: CGRect)
+    case removed(area: CGRect)
   }
   
   // TODO: Make this function accurate in case of Geometry.
-  func exclusiveOr(rect: CGRect) -> [CGRect] {
+  func exclusiveOr(_ rect: CGRect) -> [CGRect] {
     var res: [CGRect] = []
     
     if rect.maxY > self.maxY {
@@ -43,11 +43,11 @@ internal extension CGRect {
   
   func difference(with rect: CGRect) -> [Difference] {
     guard intersects(rect) else {
-      return [.Added(area: rect), .Removed(area: self)]
+      return [.added(area: rect), .removed(area: self)]
     }
     
-    let added = exclusiveOr(rect).map { Difference.Added(area: $0) }
-    let removed = rect.exclusiveOr(self).map { Difference.Removed(area: $0) }
+    let added = exclusiveOr(rect).map { Difference.added(area: $0) }
+    let removed = rect.exclusiveOr(self).map { Difference.removed(area: $0) }
     
     return added + removed
   }

@@ -16,9 +16,9 @@ public final class LinesView: UIView {
   public var lines = 3 { didSet { setNeedsDisplay() } }
   public var columns = 3 { didSet { setNeedsDisplay() } }
   public var width: CGFloat = 1 { didSet { setNeedsDisplay() } }
-  public var color = UIColor.whiteColor() { didSet { setNeedsDisplay() } }
+  public var color = UIColor.white { didSet { setNeedsDisplay() } }
   
-  override public func drawRect(rect: CGRect) {
+  override public func draw(_ rect: CGRect) {
     let verticalSpace = rect.height / CGFloat(lines)
     let horizontalSpace = rect.width / CGFloat(columns)
     

@@ -16,9 +16,9 @@ import Photos
 public final class CollectionViewChangeObserver: NSObject {
   public let collectionView: UICollectionView
   
-  internal unowned var source: protocol<PhotoFetchable, PhotoCachable>
+  internal unowned var source: PhotoFetchable & PhotoCachable
   
-  public init(collectionView: UICollectionView, source: protocol<PhotoFetchable, PhotoCachable>) {
+  public init(collectionView: UICollectionView, source: PhotoFetchable & PhotoCachable) {
     self.collectionView = collectionView
     self.source = source
   }
@@ -27,13 +27,13 @@ public final class CollectionViewChangeObserver: NSObject {
 // MARK: - PHPhotoLibraryChangeObserver
 
 extension CollectionViewChangeObserver: PHPhotoLibraryChangeObserver {
-  public func photoLibraryDidChange(changeInstance: PHChange) {
-    dispatch_async(dispatch_get_main_queue()) {
-      guard let collectionChanges = changeInstance.changeDetailsForFetchResult(self.source.fetchResult) else {
+  public func photoLibraryDidChange(_ changeInstance: PHChange) {
+    DispatchQueue.main.async {
+      guard let collectionChanges = changeInstance.changeDetails(for: self.source.fetchResult as! PHFetchResult<PHObject>) else {
         return
       }
       
-      self.source.fetchResult = collectionChanges.fetchResultAfterChanges
+      self.source.fetchResult = collectionChanges.fetchResultAfterChanges as! PHFetchResult<PHAsset> 
       
       if !collectionChanges.hasIncrementalChanges || collectionChanges.hasMoves {
         self.collectionView.reloadData()
@@ -41,17 +41,17 @@ extension CollectionViewChangeObserver: PHPhotoLibraryChangeObserver {
         self.collectionView.performBatchUpdates({
           let removedIndexes = collectionChanges.removedIndexes
           if (removedIndexes?.count ?? 0) != 0 {
-            self.collectionView.deleteItemsAtIndexPaths(removedIndexes!.indexPaths(from: 0))
+            self.collectionView.deleteItems(at: removedIndexes!.indexPaths(from: 0))
           }
           
           let insertedIndexes = collectionChanges.insertedIndexes
           if (insertedIndexes?.count ?? 0) != 0 {
-            self.collectionView.insertItemsAtIndexPaths(insertedIndexes!.indexPaths(from: 0))
+            self.collectionView.insertItems(at: insertedIndexes!.indexPaths(from: 0))
           }
           
           let changedIndexes = collectionChanges.changedIndexes
           if (changedIndexes?.count ?? 0) != 0 {
-            self.collectionView.reloadItemsAtIndexPaths(changedIndexes!.indexPaths(from: 0))
+            self.collectionView.reloadItems(at: changedIndexes!.indexPaths(from: 0))
           }
           
           }, completion: nil)

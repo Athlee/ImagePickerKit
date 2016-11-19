@@ -18,24 +18,24 @@ final class PhotoCell: UICollectionViewCell {
     super.awakeFromNib()
     
     overlayView.translatesAutoresizingMaskIntoConstraints = false
-    overlayView.backgroundColor = UIColor.blackColor()
+    overlayView.backgroundColor = UIColor.black
     overlayView.alpha = 0
     
     addSubview(overlayView)
     
     let anchors = [
-      overlayView.topAnchor.constraintEqualToAnchor(topAnchor),
-      overlayView.bottomAnchor.constraintEqualToAnchor(bottomAnchor),
-      overlayView.leadingAnchor.constraintEqualToAnchor(leadingAnchor),
-      overlayView.trailingAnchor.constraintEqualToAnchor(trailingAnchor)
+      overlayView.topAnchor.constraint(equalTo: topAnchor),
+      overlayView.bottomAnchor.constraint(equalTo: bottomAnchor),
+      overlayView.leadingAnchor.constraint(equalTo: leadingAnchor),
+      overlayView.trailingAnchor.constraint(equalTo: trailingAnchor)
       ].flatMap { $0 }
     
-    NSLayoutConstraint.activateConstraints(anchors)
+    NSLayoutConstraint.activate(anchors)
   }
   
-  override var selected: Bool {
+  override var isSelected: Bool {
     didSet {
-      if selected {
+      if isSelected {
         overlayView.alpha = 0.6
       } else {
         overlayView.alpha = 0

@@ -49,7 +49,7 @@ public extension PhotoCachable {
   ///
   func resetCachedAssets() {
     cachingImageManager.stopCachingImagesForAllAssets()
-    previousPreheatRect = CGRectZero
+    previousPreheatRect = CGRect.zero
   }
   
   ///
@@ -70,22 +70,22 @@ public extension PhotoCachable {
       var assetsToStopCaching: [PHAsset] = []
       
       difference.forEach { diff in
-        if case .Added(let area) = diff {
+        if case .added(let area) = diff {
           assetsToStartCaching += self.cachingAssets(at: area)
-        } else if case .Removed(let area) = diff {
+        } else if case .removed(let area) = diff {
           assetsToStopCaching += self.cachingAssets(at: area)
         }
       }
       
       
-      cachingImageManager.startCachingImagesForAssets(assetsToStartCaching,
+      cachingImageManager.startCachingImages(for: assetsToStartCaching,
                                                       targetSize: targetSize,
-                                                      contentMode: .AspectFill,
+                                                      contentMode: .aspectFill,
                                                       options: nil)
       
-      cachingImageManager.stopCachingImagesForAssets(assetsToStopCaching,
+      cachingImageManager.stopCachingImages(for: assetsToStopCaching,
                                                      targetSize: targetSize,
-                                                     contentMode: .AspectFill,
+                                                     contentMode: .aspectFill,
                                                      options: nil)
       
       previousPreheatRect = preheatRect
@@ -103,7 +103,7 @@ public extension PhotoCachable {
   /// - parameter fetchResult: Current fetch result object. 
   /// - returns: An array with assets found.
   /// 
-  func assets(at indexPaths: [NSIndexPath], in fetchResult: PHFetchResult) -> [PHAsset] {
+  func assets(at indexPaths: [IndexPath], in fetchResult: PHFetchResult<AnyObject>) -> [PHAsset] {
     guard indexPaths.count > 0 else {
       return []
     }

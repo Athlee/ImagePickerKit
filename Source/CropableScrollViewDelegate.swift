@@ -11,12 +11,12 @@ import UIKit
 ///
 /// A `UIScrollViewDelegate` for `Cropable` objects.
 ///
-public final class CropableScrollViewDelegate<T: Cropable where T: AnyObject>: NSObject, UIScrollViewDelegate {
-  private unowned var cropable: T
+public final class CropableScrollViewDelegate<T: Cropable>: NSObject, UIScrollViewDelegate where T: AnyObject {
+  fileprivate unowned var cropable: T
   
   public let linesView = LinesView()
   
-  private var panning = false
+  fileprivate var panning = false
   
   public init(cropable: T) {
     self.cropable = cropable
@@ -24,15 +24,15 @@ public final class CropableScrollViewDelegate<T: Cropable where T: AnyObject>: N
   
   // MARK: UIScrollViewDelegate
   
-  public func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
+  public func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
     cropable.willZoom()
   }
   
-  public func scrollViewDidZoom(scrollView: UIScrollView) {
+  public func scrollViewDidZoom(_ scrollView: UIScrollView) {
     cropable.didZoom()
   }
   
-  public func scrollViewDidScroll(scrollView: UIScrollView) {
+  public func scrollViewDidScroll(_ scrollView: UIScrollView) {
     if cropable.alwaysShowGuidelines {
       cropable.highlightArea(true)
     }
@@ -44,12 +44,12 @@ public final class CropableScrollViewDelegate<T: Cropable where T: AnyObject>: N
     cropable.highlightArea(true)
   }
   
-  public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+  public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
     panning = true
     cropable.highlightArea(true)
   }
   
-  public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+  public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
     panning = false
     
     if cropable.alwaysShowGuidelines {
@@ -59,12 +59,12 @@ public final class CropableScrollViewDelegate<T: Cropable where T: AnyObject>: N
     }
   }
   
-  public func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
+  public func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
     cropable.willEndZooming()
     cropable.didEndZooming()
   }
   
-  public func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+  public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
     return cropable.childView
   }
 }

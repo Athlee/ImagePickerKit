@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class CropViewController: UIViewController, FloatingViewLayout, Cropable, ContainerType {
+final class CropViewController: UIViewController, FloatingViewLayout, Cropable {
 
   // MARK: Outlets 
   
@@ -16,10 +16,10 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable, 
   
   // MARK: Properties
   
-  var parent: HolderViewController! 
+  var _parent: HolderViewController!
   
   var floatingView: UIView {
-    return parent.topContainer
+    return _parent.topContainer
   }
   
   // MARK: Cropable properties
@@ -33,7 +33,7 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable, 
       return 0
     }
     
-    return !navBar.hidden ? navBar.frame.height : 0
+    return !navBar.isHidden ? navBar.frame.height : 0
   }
   
   lazy var delegate: CropableScrollViewDelegate<CropViewController> = {
@@ -46,10 +46,10 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable, 
   var overlayBlurringView: UIView!
   
   var topConstraint: NSLayoutConstraint {
-    return parent.topConstraint
+    return _parent.topConstraint
   }
   
-  var draggingZone: DraggingZone = .Some(50)
+  var draggingZone: DraggingZone = .some(50)
   
   var visibleArea: CGFloat = 50
   
@@ -57,11 +57,11 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable, 
   
   var state: State {
     if topConstraint.constant == 0 {
-      return .Unfolded
+      return .unfolded
     } else if topConstraint.constant + floatingView.frame.height == visibleArea {
-      return .Folded
+      return .folded
     } else {
-      return .Moved
+      return .moved
     }
   }
   
@@ -82,7 +82,7 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable, 
   }
   
   var recognizersAdded = false
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
     updateContent()
@@ -91,7 +91,7 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable, 
       recognizersAdded = true
       
       let pan = UIPanGestureRecognizer(target: self, action: #selector(CropViewController.didRecognizeMainPan(_:)))
-      parent.view.addGestureRecognizer(pan)
+      _parent.view.addGestureRecognizer(pan)
       pan.delegate = self
       
       let checkPan = UIPanGestureRecognizer(target: self, action: #selector(CropViewController.didRecognizeCheckPan(_:)))
@@ -103,15 +103,15 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable, 
     }
   }
   
-  override func prefersStatusBarHidden() -> Bool {
+  override var prefersStatusBarHidden : Bool {
     return true
   }
   
   // MARK: IBActions
   
-  @IBAction func didRecognizeTap(rec: UITapGestureRecognizer) {
-    if state == .Folded {
-      restore(view: floatingView, to: .Unfolded, animated: true)
+  @IBAction func didRecognizeTap(_ rec: UITapGestureRecognizer) {
+    if state == .folded {
+      restore(view: floatingView, to: .unfolded, animated: true)
     }
   }
   
@@ -119,16 +119,16 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable, 
   var checking = false
   var offset: CGFloat = 0 {
     didSet {
-      if offset < 0 && state == .Moved {
+      if offset < 0 && state == .moved {
         offset = 0
       }
     }
   }
   
-  @IBAction func didRecognizeMainPan(rec: UIPanGestureRecognizer) {
+  @IBAction func didRecognizeMainPan(_ rec: UIPanGestureRecognizer) {
     guard !zooming else { return }
     
-    if state == .Unfolded {
+    if state == .unfolded {
       allowPanOutside = false
     }
     
@@ -137,7 +137,7 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable, 
     updatePhotoCollectionViewScrolling()
   }
   
-  @IBAction func didRecognizeCheckPan(rec: UIPanGestureRecognizer) {
+  @IBAction func didRecognizeCheckPan(_ rec: UIPanGestureRecognizer) {
     guard !zooming else { return }
     allowPanOutside = true
   }
@@ -153,18 +153,18 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable, 
   }
   
   func updateCropViewScrolling() {
-    if state == .Folded || state == .Moved {
-      cropView.userInteractionEnabled = false
+    if state == .folded || state == .moved {
+      cropView.isUserInteractionEnabled = false
     } else {
-      cropView.userInteractionEnabled = true
+      cropView.isUserInteractionEnabled = true
     }
   }
   
   func updatePhotoCollectionViewScrolling() {
-    if state == .Moved {
-      parent.photoViewController.collectionView.contentOffset.y = offset
+    if state == .moved {
+      _parent.photoViewController.collectionView.contentOffset.y = offset
     } else {
-      offset = parent.photoViewController.collectionView.contentOffset.y
+      offset = _parent.photoViewController.collectionView.contentOffset.y
     }
   }
   
@@ -181,11 +181,11 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable, 
 }
 
 extension CropViewController: UIGestureRecognizerDelegate {
-  func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+  func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
     return true
   }
   
-  func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     return true
   }
 }

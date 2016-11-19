@@ -92,7 +92,7 @@ public protocol Cropable {
   /// - parameter highlght: A flag indicating whether it should show or hide the zone.
   /// - parameter animated: An animation flag, it's `true` by default.
   ///
-  func highlightArea(highlight: Bool, animated: Bool)
+  func highlightArea(_ highlight: Bool, animated: Bool)
 }
 
 // MARK: - Default implementations for UIImageView childs
@@ -109,15 +109,15 @@ public extension Cropable where ChildView == UIImageView {
     view.addSubview(cropView)
     
     let anchors = [
-      cropView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor),
-      cropView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor),
-      cropView.topAnchor.constraintEqualToAnchor(view.topAnchor),
-      cropView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor)
+      cropView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      cropView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      cropView.topAnchor.constraint(equalTo: view.topAnchor),
+      cropView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
       ].flatMap { $0 }
     
-    NSLayoutConstraint.activateConstraints(anchors)
+    NSLayoutConstraint.activate(anchors)
     
-    cropView.backgroundColor = .clearColor()
+    cropView.backgroundColor = .clear
     cropView.showsHorizontalScrollIndicator = false
     cropView.showsVerticalScrollIndicator = false
     cropView.contentSize = view.bounds.size
@@ -143,7 +143,7 @@ public extension Cropable where ChildView == UIImageView {
   /// - parameter image: An image to use.
   /// - parameter adjustingContent: Indicates whether the content should be adjusted or not. Default value is `true`.
   ///
-  func addImage(image: UIImage, adjustingContent: Bool = true) {
+  func addImage(_ image: UIImage, adjustingContent: Bool = true) {
     childView.image = image
     
     if adjustingContent {
@@ -268,22 +268,22 @@ public extension Cropable {
   /// - parameter highlght: A flag indicating whether it should show or hide the zone.
   /// - parameter animated: An animation flag, it's `true` by default.
   ///
-  func highlightArea(highlight: Bool, animated: Bool = true) {
-    guard UIApplication.sharedApplication().keyWindow != nil else {
+  func highlightArea(_ highlight: Bool, animated: Bool = true) {
+    guard UIApplication.shared.keyWindow != nil else {
       return
     }
     
     linesView.setNeedsDisplay()
     if linesView.superview == nil {
       cropView.insertSubview(linesView, aboveSubview: childView)
-      linesView.backgroundColor = UIColor.clearColor()
+      linesView.backgroundColor = UIColor.clear
       linesView.alpha = 0
     } else {
       if animated {
-        UIView.animateWithDuration(
-          0.3,
+        UIView.animate(
+          withDuration: 0.3,
           delay: 0,
-          options: [.AllowUserInteraction],
+          options: [.allowUserInteraction],
           animations: {
             self.linesView.alpha = highlight ? 1 : 0
           },
@@ -302,7 +302,7 @@ public extension Cropable {
     )
     
     let visibleRect = CGRect(origin: cropView.contentOffset, size: cropView.bounds.size)
-    let intersection = visibleRect.intersect(childView.frame)
+    let intersection = visibleRect.intersection(childView.frame)
     linesView.frame = intersection
   }
 }

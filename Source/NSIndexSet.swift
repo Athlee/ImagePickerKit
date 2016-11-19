@@ -8,13 +8,13 @@
 
 import Foundation
 
-internal extension NSIndexSet {
-  func indexPaths(from section: Int) -> [NSIndexPath] {
-    var indexPaths: [NSIndexPath] = []
+internal extension IndexSet {
+  func indexPaths(from section: Int) -> [IndexPath] {
+    var indexPaths: [IndexPath] = []
     indexPaths.reserveCapacity(count)
     
-    enumerateIndexesUsingBlock { idx, stop in
-      indexPaths.append(NSIndexPath(forItem: idx, inSection: section))
+    forEach {
+        indexPaths.append(IndexPath(item: $0, section: section))
     }
     
     return indexPaths

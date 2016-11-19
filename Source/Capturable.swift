@@ -67,7 +67,7 @@ public protocol Capturable: class {
   ///
   /// - parameter view: A holder of the preview.
   ///
-  func reloadPreview(view: UIView)
+  func reloadPreview(_ view: UIView)
   
   ///
   /// Registers an observer for notifications (when the device
@@ -90,7 +90,7 @@ public protocol Capturable: class {
   ///
   /// - parameter mode: A capture flash mode.
   ///
-  func setFlashMode(mode: AVCaptureFlashMode)
+  func setFlashMode(_ mode: AVCaptureFlashMode)
   
   ///
   /// Provides camera focusing at the certain area aroung the point provided.
@@ -114,7 +114,7 @@ public extension Capturable {
     }
     
     for device in AVCaptureDevice.devices() {
-      if let device = device as? AVCaptureDevice where device.position == AVCaptureDevicePosition.Back {
+      if let device = device as? AVCaptureDevice, device.position == AVCaptureDevicePosition.back {
         self.device = device
       }
     }
@@ -134,7 +134,7 @@ public extension Capturable {
       assertionFailure("Unable to connect to the device input....")
     }
     
-    setFlashMode(.Auto)
+    setFlashMode(.auto)
     startCamera()
     registerForNotifications()
   }
@@ -143,11 +143,11 @@ public extension Capturable {
   /// Starts capturing from a device camera.
   ///
   func startCamera() {
-    let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
+    let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
     
-    if status == AVAuthorizationStatus.Authorized {
+    if status == AVAuthorizationStatus.authorized {
       session?.startRunning()
-    } else if status == AVAuthorizationStatus.Denied || status == AVAuthorizationStatus.Restricted {
+    } else if status == AVAuthorizationStatus.denied || status == AVAuthorizationStatus.restricted {
       session?.stopRunning()
     }
   }
@@ -166,11 +166,11 @@ public extension Capturable {
   ///
   func addPreviewLayer(at view: UIView) {
     let videoLayer = AVCaptureVideoPreviewLayer(session: session)
-    videoLayer.frame = view.bounds
-    videoLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+    videoLayer?.frame = view.bounds
+    videoLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
     
-    dispatch_async(dispatch_get_main_queue()) {
-      view.layer.addSublayer(videoLayer)
+    DispatchQueue.main.async {
+      view.layer.addSublayer(videoLayer!)
     }
   }
   
@@ -179,7 +179,7 @@ public extension Capturable {
   ///
   /// - parameter view: A holder of the preview.
   ///
-  func reloadPreview(view: UIView) {
+  func reloadPreview(_ view: UIView) {
     view.layer.sublayers?.forEach {
       if $0 is AVCaptureVideoPreviewLayer {
         $0.frame = self.previewViewContainer.bounds
@@ -221,10 +221,10 @@ public extension Capturable {
           session.removeInput(input as! AVCaptureInput)
         }
         
-        let position = (videoInput?.device.position == AVCaptureDevicePosition.Front) ? AVCaptureDevicePosition.Back : AVCaptureDevicePosition.Front
+        let position = (videoInput?.device.position == AVCaptureDevicePosition.front) ? AVCaptureDevicePosition.back : AVCaptureDevicePosition.front
         
-        for device in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) {
-          if let device = device as? AVCaptureDevice where device.position == position {
+        for device in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) {
+          if let device = device as? AVCaptureDevice, device.position == position {
             videoInput = try AVCaptureDeviceInput(device: device)
             session.addInput(videoInput)
           }
@@ -244,7 +244,7 @@ public extension Capturable {
   ///
   /// - parameter mode: A capture flash mode.
   ///
-  func setFlashMode(mode: AVCaptureFlashMode) {
+  func setFlashMode(_ mode: AVCaptureFlashMode) {
     guard cameraIsAvailable() else { return }
     
     do {
@@ -256,7 +256,7 @@ public extension Capturable {
       }
     } catch {
       assertionFailure("Unable to lock device for configuration. Error: \(error)")
-      device?.flashMode = .Off
+      device?.flashMode = .off
       return
     }
   }
@@ -283,48 +283,48 @@ public extension Capturable {
       y: 1.0 - point.x / viewsize.width
     )
     
-    let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+    let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
     
     do {
-      try device.lockForConfiguration()
+      try device?.lockForConfiguration()
     } catch {
       assertionFailure("Unable to lock device for configuration. Error: \(error)")
       return
     }
     
-    if device.isFocusModeSupported(AVCaptureFocusMode.AutoFocus) == true {
-      device.focusMode = AVCaptureFocusMode.AutoFocus
-      device.focusPointOfInterest = newPoint
+    if device?.isFocusModeSupported(AVCaptureFocusMode.autoFocus) == true {
+      device?.focusMode = AVCaptureFocusMode.autoFocus
+      device?.focusPointOfInterest = newPoint
     }
     
-    if device.isExposureModeSupported(AVCaptureExposureMode.ContinuousAutoExposure) == true {
-      device.exposureMode = AVCaptureExposureMode.ContinuousAutoExposure
-      device.exposurePointOfInterest = newPoint
+    if device?.isExposureModeSupported(AVCaptureExposureMode.continuousAutoExposure) == true {
+      device?.exposureMode = AVCaptureExposureMode.continuousAutoExposure
+      device?.exposurePointOfInterest = newPoint
     }
     
-    device.unlockForConfiguration()
+    device?.unlockForConfiguration()
     
     focusView?.alpha = 0.0
     focusView?.center = point
-    focusView?.backgroundColor = UIColor.clearColor()
-    focusView?.layer.borderColor = UIColor.orangeColor().CGColor
+    focusView?.backgroundColor = UIColor.clear
+    focusView?.layer.borderColor = UIColor.orange.cgColor
     focusView?.layer.borderWidth = 1.0
-    focusView!.transform = CGAffineTransformMakeScale(1.0, 1.0)
+    focusView!.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
     
-    UIView.animateWithDuration(
-      0.8,
+    UIView.animate(
+      withDuration: 0.8,
       delay: 0.0,
       usingSpringWithDamping: 0.8,
       initialSpringVelocity: 3.0,
-      options: UIViewAnimationOptions.CurveEaseIn,
+      options: UIViewAnimationOptions.curveEaseIn,
       
       animations: {
         self.focusView!.alpha = 1.0
-        self.focusView!.transform = CGAffineTransformMakeScale(0.7, 0.7)
+        self.focusView!.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
       },
       
       completion: { _ in
-        self.focusView!.transform = CGAffineTransformMakeScale(1.0, 1.0)
+        self.focusView!.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         self.focusView!.alpha = 0
       }
     )
@@ -339,9 +339,9 @@ internal extension Capturable {
   /// Returns `true` if a user has given access to the camera.
   ///
   func cameraIsAvailable() -> Bool {
-    let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
+    let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
     
-    if status == AVAuthorizationStatus.Authorized {
+    if status == AVAuthorizationStatus.authorized {
       return true
     }
     
@@ -353,12 +353,12 @@ internal extension Capturable {
   ///
   /// - parameter notification: A foregound entry notification. 
   ///
-  func willEnterForegroundNotification(notification: NSNotification) {
-    let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
+  func willEnterForegroundNotification(_ notification: Notification) {
+    let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
     
-    if status == AVAuthorizationStatus.Authorized {
+    if status == AVAuthorizationStatus.authorized {
       session?.startRunning()
-    } else if status == AVAuthorizationStatus.Denied || status == AVAuthorizationStatus.Restricted {
+    } else if status == AVAuthorizationStatus.denied || status == AVAuthorizationStatus.restricted {
       session?.stopRunning()
     }
   }

@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-final class CaptureViewController: UIViewController, PhotoCapturable, ContainerType {
+final class CaptureViewController: UIViewController, PhotoCapturable {
 
   // MARK: Outlets
   
@@ -24,7 +24,7 @@ final class CaptureViewController: UIViewController, PhotoCapturable, ContainerT
     didSet {
       guard let device = device else { return }
       if !device.hasFlash {
-        flashButton.hidden = true
+        flashButton.isHidden = true
       }
     }
   }
@@ -42,17 +42,17 @@ final class CaptureViewController: UIViewController, PhotoCapturable, ContainerT
   
   // MARK: Properties
   
-  var parent: SelectionViewController!
+  var _parent: SelectionViewController!
   
-  var flashMode: AVCaptureFlashMode = .On {
+  var flashMode: AVCaptureFlashMode = .on {
     didSet {
       switch flashMode {
-      case .On:
-        flashButton.setImage(UIImage(named: "Flash"), forState: .Normal)
-      case .Off:
-        flashButton.setImage(UIImage(named: "FlashOff"), forState: .Normal)
-      case .Auto:
-        flashButton.setImage(UIImage(named: "FlashAuto"), forState: .Normal)
+      case .on:
+        flashButton.setImage(UIImage(named: "Flash"), for: UIControlState())
+      case .off:
+        flashButton.setImage(UIImage(named: "FlashOff"), for: UIControlState())
+      case .auto:
+        flashButton.setImage(UIImage(named: "FlashAuto"), for: UIControlState())
       }
       
       setFlashMode(flashMode)
@@ -61,12 +61,12 @@ final class CaptureViewController: UIViewController, PhotoCapturable, ContainerT
   
   // MARK: Life cycle
   
-  var queue = NSOperationQueue()
+  var queue = OperationQueue()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    queue.addOperationWithBlock {
+    queue.addOperation {
       self.prepareForCapturing()
       self.setFlashMode(self.flashMode)
     }
@@ -80,44 +80,44 @@ final class CaptureViewController: UIViewController, PhotoCapturable, ContainerT
     reloadPreview(previewViewContainer)
   }
   
-  override func prefersStatusBarHidden() -> Bool {
+  override var prefersStatusBarHidden : Bool {
     return true
   }
   
   // MARK: IBActions 
   
-  @IBAction func recognizedTapGesture(rec: UITapGestureRecognizer) {
-    let point = rec.locationInView(previewViewContainer)
+  @IBAction func recognizedTapGesture(_ rec: UITapGestureRecognizer) {
+    let point = rec.location(in: previewViewContainer)
     focus(at: point)
   }
   
-  @IBAction func didPressCapturePhoto(sender: AnyObject) {
+  @IBAction func didPressCapturePhoto(_ sender: AnyObject) {
     captureStillImage { image in
-      self.parent.imageView.image = image
-      self.dismissViewControllerAnimated(true, completion: nil)
-      self.parent = nil
+      self._parent.imageView.image = image
+      self.dismiss(animated: true, completion: nil)
+      self._parent = nil
     }
   }
   
-  @IBAction func didPressFlipButton(sender: AnyObject) {
+  @IBAction func didPressFlipButton(_ sender: AnyObject) {
     flipCamera()
   }
   
-  @IBAction func didPressFlashButton(sender: AnyObject) {
+  @IBAction func didPressFlashButton(_ sender: AnyObject) {
     switch flashMode {
-    case .Auto:
-      flashMode = .On
-    case .On:
-      flashMode = .Off
-    case .Off:
-      flashMode = .Auto
+    case .auto:
+      flashMode = .on
+    case .on:
+      flashMode = .off
+    case .off:
+      flashMode = .auto
     }
   }
   
 }
 
 extension CaptureViewController {
-  func didSetFlashMode(flashMode: AVCaptureFlashMode) {
+  func didSetFlashMode(_ flashMode: AVCaptureFlashMode) {
     self.flashMode = flashMode
   }
 }

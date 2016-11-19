@@ -9,8 +9,8 @@
 import UIKit
 
 internal extension UICollectionView {
-  func indexPaths(for rect: CGRect) -> [NSIndexPath] {
-    guard let allLayoutAttributes = collectionViewLayout.layoutAttributesForElementsInRect(rect) else {
+  func indexPaths(for rect: CGRect) -> [IndexPath] {
+    guard let allLayoutAttributes = collectionViewLayout.layoutAttributesForElements(in: rect) else {
       return []
     }
     

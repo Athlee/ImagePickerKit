@@ -282,9 +282,12 @@
 				TargetAttributes = {
 					040D62D81D36A990003F8D8E = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = RG4N372RZE;
+						LastSwiftMigration = 0810;
 					};
 					040D62EC1D36A991003F8D8E = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0810;
 						TestTargetID = 040D62D81D36A990003F8D8E;
 					};
 				};
@@ -484,10 +487,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = RG4N372RZE;
 				INFOPLIST_FILE = "Athlee-ImagePicker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-ImagePicker";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-ImagePicker-2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -495,10 +500,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = RG4N372RZE;
 				INFOPLIST_FILE = "Athlee-ImagePicker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-ImagePicker";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-ImagePicker-2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -510,6 +517,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-ImagePickerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Athlee-ImagePicker.app/Athlee-ImagePicker";
 			};
 			name = Debug;
@@ -522,6 +530,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.athlee.Athlee-ImagePickerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Athlee-ImagePicker.app/Athlee-ImagePicker";
 			};
 			name = Release;

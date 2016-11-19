@@ -15,17 +15,17 @@ import UIKit
 /// - Moved: the floating view is moved.
 ///
 public enum State {
-  case Unfolded
-  case Folded
-  case Moved
+  case unfolded
+  case folded
+  case moved
   
   var description: String {
     switch self {
-    case .Unfolded:
+    case .unfolded:
       return "Unfolded"
-    case .Folded:
+    case .folded:
       return "Folded"
-    case .Moved:
+    case .moved:
       return "Moved"
     }
   }
@@ -37,9 +37,9 @@ public enum State {
 /// type supports only vertical states for now.
 ///
 public enum Direction {
-  case Up(delta: CGFloat)
-  case Down(delta: CGFloat)
-  case None
+  case up(delta: CGFloat)
+  case down(delta: CGFloat)
+  case none
   
   ///
   /// Constructs the same direction type with a new
@@ -48,23 +48,23 @@ public enum Direction {
   /// - parameter delta: The distance passed. 
   /// - returns: The same direction type with a new delta. 
   ///
-  func changed(delta delta: CGFloat) -> Direction {
-    if case .Up(_) = self {
-      return .Up(delta: delta)
-    } else if case .Down(_) = self {
-      return .Down(delta: delta)
+  func changed(delta: CGFloat) -> Direction {
+    if case .up(_) = self {
+      return .up(delta: delta)
+    } else if case .down(_) = self {
+      return .down(delta: delta)
     } else {
-      return .None
+      return .none
     }
   }
   
   var description: String {
     switch self {
-    case .Up(_):
+    case .up(_):
       return "Up"
-    case .Down(_):
+    case .down(_):
       return "Down"
-    case .None:
+    case .none:
       return "None"
     }
   }
@@ -74,8 +74,8 @@ public enum Direction {
 /// Options for floating dragging zone.
 ///
 public enum DraggingZone {
-  case All
-  case Some(CGFloat)
+  case all
+  case some(CGFloat)
 }
 
 ///
@@ -124,7 +124,7 @@ public protocol FloatingViewLayout: class {
   /// - parameter view: The view to move. 
   /// - parameter direction: The movement's direction with preset delta. 
   ///
-  func move(view view: UIView, in direction: Direction)
+  func move(view: UIView, in direction: Direction)
   
   ///
   /// Receives a pan gesture and provides handle actions.
@@ -132,7 +132,7 @@ public protocol FloatingViewLayout: class {
   /// - parameter recognizer: The sender gesture recognizer of a pan. 
   /// - parameter view: The floating view that should be moved. 
   ///
-  func receivePanGesture(recognizer recognizer: UIPanGestureRecognizer, with view: UIView)
+  func receivePanGesture(recognizer: UIPanGestureRecognizer, with view: UIView)
   
   ///
   /// Restores a given floating view to the certain state.
@@ -141,7 +141,7 @@ public protocol FloatingViewLayout: class {
   /// - parameter state: The state to change to.
   /// - parameter animated: Indicates whether the transition should be animated or not. Default value is `false`.
   ///
-  func restore(view view: UIView, to state: State, animated: Bool)
+  func restore(view: UIView, to state: State, animated: Bool)
   
   ///
   /// Determines whether the floating view is moved enough
@@ -150,7 +150,7 @@ public protocol FloatingViewLayout: class {
   /// - parameter view: The floating view.
   /// - parameter direction: The movement's direction.
   ///
-  func crossedEnough(view view: UIView, in direction: Direction) -> Bool
+  func crossedEnough(view: UIView, in direction: Direction) -> Bool
 }
 
 //
@@ -160,38 +160,38 @@ public protocol FloatingViewLayout: class {
 internal extension FloatingViewLayout {
   func direction(withVelocity velocity: CGPoint, delta: CGFloat) -> Direction {
     if velocity.y < 0 {
-      return Direction.Up(delta: delta)
+      return Direction.up(delta: delta)
     } else if velocity.y > 0 {
-      return Direction.Down(delta: delta)
+      return Direction.down(delta: delta)
     } else {
-      return Direction.None
+      return Direction.none
     }
   }
   
   func closestState(of view: UIView) -> State {
     if view.frame.midY <= 0 {
-      return .Folded
+      return .folded
     } else {
-      return .Unfolded
+      return .unfolded
     }
   }
   
   func prepareOverlayBlurringViews(with view: UIView) {
     overlayBlurringView = UIView()
-    overlayBlurringView.backgroundColor = .blackColor()
+    overlayBlurringView.backgroundColor = .black
     overlayBlurringView.translatesAutoresizingMaskIntoConstraints = false
     overlayBlurringView.alpha = 0
     
     view.addSubview(overlayBlurringView)
     
     let anchors = [
-      overlayBlurringView.topAnchor.constraintEqualToAnchor(view.topAnchor),
-      overlayBlurringView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor),
-      overlayBlurringView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor),
-      overlayBlurringView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor)
+      overlayBlurringView.topAnchor.constraint(equalTo: view.topAnchor),
+      overlayBlurringView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      overlayBlurringView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      overlayBlurringView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
       ].flatMap { $0 }
     
-    NSLayoutConstraint.activateConstraints(anchors)
+    NSLayoutConstraint.activate(anchors)
   }
 }
 
@@ -218,10 +218,10 @@ public extension FloatingViewLayout {
   /// - parameter state: The state to change to.
   /// - parameter animated: Indicates whether the transition should be animated or not. Default value is `false`.
   ///
-  func restore(view view: UIView, to state: State, animated: Bool = false) {
-    if state == .Unfolded {
+  func restore(view: UIView, to state: State, animated: Bool = false) {
+    if state == .unfolded {
       topConstraint.constant = 0
-    } else if state == .Folded {
+    } else if state == .folded {
       topConstraint.constant = -(view.frame.height - visibleArea)
     }
     
@@ -230,13 +230,13 @@ public extension FloatingViewLayout {
         prepareOverlayBlurringViews(with: view)
       }
       
-      UIView.animateWithDuration(
-        0.25,
+      UIView.animate(
+        withDuration: 0.25,
         delay: 0,
-        options: [.AllowUserInteraction, .BeginFromCurrentState, .CurveEaseIn],
+        options: [.allowUserInteraction, .beginFromCurrentState, .curveEaseIn],
         animations: {
           view.superview?.layoutIfNeeded()
-          self.overlayBlurringView.alpha = self.state == .Unfolded ? 0 : 0.6
+          self.overlayBlurringView.alpha = self.state == .unfolded ? 0 : 0.6
         },
         
         completion: { finished in
@@ -253,29 +253,29 @@ public extension FloatingViewLayout {
   /// - parameter view: The view to move.
   /// - parameter direction: The movement's direction with preset delta.
   ///
-  func move(view view: UIView, in direction: Direction) {
+  func move(view: UIView, in direction: Direction) {
     switch direction {
-    case .Up(var delta):
+    case .up(var delta):
       let maxY = (topConstraint.constant + view.frame.height)
       
       if maxY + delta < visibleArea {
-        guard state == .Moved else { return }
+        guard state == .moved else { return }
         delta += visibleArea - (delta + maxY)
       }
       
       prepareForMovement()
       topConstraint.constant += delta
-    case .Down(var delta):
+    case .down(var delta):
       let minY = topConstraint.constant
       
       if minY + delta > 0 {
-        guard state == .Moved else { return }
+        guard state == .moved else { return }
         delta -= minY + delta
       }
       
       prepareForMovement()
       topConstraint.constant += delta
-    case .None:
+    case .none:
       print("Direction is not found yet!")
     }
     
@@ -298,10 +298,10 @@ public extension FloatingViewLayout {
   /// - parameter view: The floating view.
   /// - parameter direction: The movement's direction.
   ///
-  func crossedEnough(view view: UIView, in direction: Direction) -> Bool {
-    if case .Down(_) = direction {
+  func crossedEnough(view: UIView, in direction: Direction) -> Bool {
+    if case .down(_) = direction {
       return view.frame.midY >= 0
-    } else if case .Up(_) = direction {
+    } else if case .up(_) = direction {
       return view.frame.midY <= 0
     } else {
       return false
@@ -314,22 +314,22 @@ public extension FloatingViewLayout {
   /// - parameter recognizer: The sender gesture recognizer of a pan.
   /// - parameter view: The floating view that should be moved.
   ///
-  func receivePanGesture(recognizer recognizer: UIPanGestureRecognizer, with view: UIView) {
+  func receivePanGesture(recognizer: UIPanGestureRecognizer, with view: UIView) {
     guard let superview = recognizer.view else {
       assertionFailure("Unable to find a registered view for UIPangestureRecognizer: \(recognizer).")
       return
     }
     
-    let location = recognizer.locationInView(superview)
-    let velocity = recognizer.velocityInView(superview)
+    let location = recognizer.location(in: superview)
+    let velocity = recognizer.velocity(in: superview)
     
-    if case .Some(let height) = draggingZone where recognizer.state == .Began {
+    if case .some(let height) = draggingZone, recognizer.state == .began {
       if location.y < view.frame.maxY - height {
         return
       }
     }
     
-    guard recognizer.state != .Began else {
+    guard recognizer.state != .began else {
       previousPoint = location
       return
     }
@@ -345,29 +345,29 @@ public extension FloatingViewLayout {
     if view.frame.contains(location) {
       move(view: view, in: _direction)
     } else {
-      if case .Down(_) = _direction where state == .Moved {
+      if case .down(_) = _direction, state == .moved {
         move(view: view, in: _direction)
       } else if allowPanOutside {
         move(view: view, in: _direction)
       }
     }
     
-    if recognizer.state == .Ended && state == .Moved {
+    if recognizer.state == .ended && state == .moved {
       self.previousPoint = nil
       
       if abs(velocity.y) >= 1000.0 || crossedEnough(view: view, in: _direction) {
-        if case .Up(_) = _direction {
-          restore(view: view, to: .Folded, animated: true)
-        } else if case .Down(_) = _direction {
-          restore(view: view, to: .Unfolded, animated: true)
+        if case .up(_) = _direction {
+          restore(view: view, to: .folded, animated: true)
+        } else if case .down(_) = _direction {
+          restore(view: view, to: .unfolded, animated: true)
         } else {
           restore(view: view, to: closestState(of: view), animated: true)
         }
       } else {
-        if case .Up(_) = _direction {
-          restore(view: view, to: .Unfolded, animated: true)
-        } else if case .Down(_) = _direction {
-          restore(view: view, to: .Folded, animated: true)
+        if case .up(_) = _direction {
+          restore(view: view, to: .unfolded, animated: true)
+        } else if case .down(_) = _direction {
+          restore(view: view, to: .folded, animated: true)
         } else {
           restore(view: view, to: closestState(of: view), animated: true)
         }

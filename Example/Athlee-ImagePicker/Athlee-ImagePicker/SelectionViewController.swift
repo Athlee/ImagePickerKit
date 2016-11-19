@@ -20,12 +20,12 @@ final class SelectionViewController: UIViewController {
     super.viewDidLoad()
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    let dest = segue.destinationViewController
-    if let dest = dest as? UINavigationController, holder = dest.topViewController as? HolderViewController {
-      holder.parent = self
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    let dest = segue.destination
+    if let dest = dest as? UINavigationController, let holder = dest.topViewController as? HolderViewController {
+      holder._parent = self
     } else if let dest = dest as? CaptureViewController {
-      dest.parent = self
+      dest._parent = self
     }
   }
 

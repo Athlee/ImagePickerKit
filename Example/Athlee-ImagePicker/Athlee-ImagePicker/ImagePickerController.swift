@@ -26,7 +26,7 @@ class ImagePickerController: UIViewController, FloatingViewLayout {
     return floatingTopConstraint
   }
   
-  var draggingZone: DraggingZone = .All
+  var draggingZone: DraggingZone = .all
   
   var visibleArea: CGFloat = 80
   
@@ -34,11 +34,11 @@ class ImagePickerController: UIViewController, FloatingViewLayout {
   
   var state: State {
     if floatingView.frame.origin.y == 0 {
-      return .Unfolded
+      return .unfolded
     } else if floatingView.frame.maxY == visibleArea {
-      return .Folded
+      return .folded
     } else {
-      return .Moved
+      return .moved
     }
   }
   
@@ -58,19 +58,19 @@ class ImagePickerController: UIViewController, FloatingViewLayout {
     checkPan.delegate = self
   }
   
-  override func prefersStatusBarHidden() -> Bool {
+  override var prefersStatusBarHidden : Bool {
     return true 
   }
   
   // MARK: IBActions
   
-  @IBAction func didRecognizeMainPan(rec: UIPanGestureRecognizer) {
+  @IBAction func didRecognizeMainPan(_ rec: UIPanGestureRecognizer) {
     receivePanGesture(recognizer: rec, with: floatingView)
-    tableView.scrollEnabled = true
+    tableView.isScrollEnabled = true
     allowPanOutside = false
   }
   
-  @IBAction func didRecognizeCheckPan(rec: UIPanGestureRecognizer) {
+  @IBAction func didRecognizeCheckPan(_ rec: UIPanGestureRecognizer) {
     allowPanOutside = true
     tableView.resignFirstResponder()
   }
@@ -78,17 +78,17 @@ class ImagePickerController: UIViewController, FloatingViewLayout {
   // MARK: FloatingViewLayout methods
   
   func prepareForMovement() {
-    if state == .Unfolded {
-      tableView.scrollEnabled = true
+    if state == .unfolded {
+      tableView.isScrollEnabled = true
     } else {
       // TODO: Make it smoother
-      tableView.scrollEnabled = true
+      tableView.isScrollEnabled = true
     }
   }
   
   // MARK: UIScrollViewDelegate
   
-  func scrollViewDidScroll(scrollView: UIScrollView) {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
     if scrollView.contentOffset.y < 0 {
       allowPanOutside = true
     } else {
@@ -100,11 +100,11 @@ class ImagePickerController: UIViewController, FloatingViewLayout {
 // MARK: - UIGestureRecognizerDelegate
 
 extension ImagePickerController: UIGestureRecognizerDelegate {
-  func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+  func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
     return true
   }
   
-  func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     return true
   }
 }
@@ -112,16 +112,16 @@ extension ImagePickerController: UIGestureRecognizerDelegate {
 // MARK: - UITableView management
 
 extension ImagePickerController: UITableViewDataSource, UITableViewDelegate {
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return 50
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("Cell")!
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
     return cell
   }
 }

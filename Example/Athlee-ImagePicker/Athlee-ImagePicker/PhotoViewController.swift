@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-final class PhotoViewController: UIViewController, ContainerType {
+final class PhotoViewController: UIViewController {
   
   // MARK: Outlets
   
@@ -17,13 +17,13 @@ final class PhotoViewController: UIViewController, ContainerType {
   
   // MARK: Properties
   
-  var parent: HolderViewController! 
+  var _parent: HolderViewController!
   
   let space: CGFloat = 2
   
-  lazy var fetchResult: PHFetchResult = {
+  lazy var fetchResult: PHFetchResult = { () -> PHFetchResult<PHAsset> in 
     let options = PHFetchOptions()
-    let fetchResult = PHAsset.fetchAssetsWithMediaType(.Image, options: options)
+    let fetchResult = PHAsset.fetchAssets(with: .image, options: options)
     
     return fetchResult
   }()
@@ -54,39 +54,39 @@ final class PhotoViewController: UIViewController, ContainerType {
     
     if fetchResult.count > 0 {
       collectionView.reloadData()
-      collectionView.selectItemAtIndexPath(
-        NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.None)
+      collectionView.selectItem(
+        at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: UICollectionViewScrollPosition())
     }
     
-    PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(observer)
+    PHPhotoLibrary.shared().register(observer)
     
-    collectionView.backgroundColor = .clearColor()
+    collectionView.backgroundColor = .clear
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    let firstReversed = fetchResult[fetchResult.count - 1] as! PHAsset
-    cachingImageManager.requestImageForAsset(
-      firstReversed,
-      targetSize: UIScreen.mainScreen().bounds.size,
-      contentMode: .AspectFill,
+    let firstReversed = fetchResult[fetchResult.count - 1] 
+    cachingImageManager.requestImage(
+      for: firstReversed,
+      targetSize: UIScreen.main.bounds.size,
+      contentMode: .aspectFill,
       options: nil) { result, info in
         if info!["PHImageFileURLKey"] != nil  {
-          self.parent.image = result
+          self._parent.image = result
         }
     }
   }
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     updateCachedAssets(for: collectionView.bounds, targetSize: cellSize)
   }
   
   
   deinit {
-    if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.Authorized {
-      PHPhotoLibrary.sharedPhotoLibrary().unregisterChangeObserver(observer)
+    if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized {
+      PHPhotoLibrary.shared().unregisterChangeObserver(observer)
     }
   }
   
@@ -103,14 +103,14 @@ extension PhotoViewController: PhotoCachable {
     
     PHPhotoLibrary.requestAuthorization { (status) -> Void in
       switch status {
-      case .Authorized:
+      case .authorized:
         self.cachingImageManager = PHCachingImageManager()
         if self.fetchResult.count > 0 {
           // TODO: Set main initial image
         }
         
-      case .Restricted, .Denied:
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+      case .restricted, .denied:
+        DispatchQueue.main.async(execute: { () -> Void in
           
           // TODO: Show error
           
@@ -123,73 +123,73 @@ extension PhotoViewController: PhotoCachable {
   
   internal func cachingAssets(at rect: CGRect) -> [PHAsset] {
     let indexPaths = collectionView.indexPaths(for: rect)
-    return assets(at: indexPaths, in: fetchResult)
+    return assets(at: indexPaths, in: fetchResult as! PHFetchResult<AnyObject>)
   }
 }
 
 extension PhotoViewController {
-  func scrollViewDidScroll(scrollView: UIScrollView) {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
     if scrollView == collectionView {
       updateCachedAssets(for: collectionView.bounds, targetSize: cellSize)
       
       if scrollView.contentOffset.y < 0 {
-        parent.cropViewController?.allowPanOutside = true
+        _parent.cropViewController?.allowPanOutside = true
       } else {
-        parent.cropViewController?.allowPanOutside = false 
+        _parent.cropViewController?.allowPanOutside = false
       }
     }
   }
 }
 
 extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-  func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
     return 1
   }
   
-  func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return fetchResult.count
   }
   
-  func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoCell
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
     
     let reversedIndex = fetchResult.count - indexPath.item - 1
-    let asset = fetchResult[reversedIndex] as! PHAsset
-    cachingImageManager.requestImageForAsset(
-      asset,
+    let asset = fetchResult[reversedIndex] 
+    cachingImageManager.requestImage(
+      for: asset,
       targetSize: cellSize,
-      contentMode: .AspectFill,
+      contentMode: .aspectFill,
       options: nil) { [cell] result, info in
         
         cell.photoImageView.image = result
         
     }
     
-    cell.backgroundColor = .redColor()
+    cell.backgroundColor = .red
     
     return cell
   }
   
-  func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     let reversedIndex = fetchResult.count - indexPath.item - 1
     
-    let asset = fetchResult[reversedIndex] as! PHAsset
-    cachingImageManager.requestImageForAsset(
-      asset,
-      targetSize: UIScreen.mainScreen().bounds.size,
-      contentMode: .AspectFill,
+    let asset = fetchResult[reversedIndex] 
+    cachingImageManager.requestImage(
+      for: asset,
+      targetSize: UIScreen.main.bounds.size,
+      contentMode: .aspectFill,
       options: nil) { result, info in
         if info!["PHImageFileURLKey"] != nil  {
-          if let cropViewController = self.parent.cropViewController {
+          if let cropViewController = self._parent.cropViewController {
             let floatingView = cropViewController.floatingView
-            cropViewController.restore(view: floatingView, to: .Unfolded, animated: true)
+            cropViewController.restore(view: floatingView, to: .unfolded, animated: true)
             cropViewController.animationCompletion = { _ in
-              self.collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+              self.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
               cropViewController.animationCompletion = nil
             }
           }
           
-          self.parent.image = result
+          self._parent.image = result
         }
     }
     
@@ -197,19 +197,19 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
 }
 
 extension PhotoViewController: UICollectionViewDelegateFlowLayout {
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return space
   }
   
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
     return space
   }
   
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-    return UIEdgeInsetsZero
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    return UIEdgeInsets.zero
   }
   
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return cellSize
   }
 }
