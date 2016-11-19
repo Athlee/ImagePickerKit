@@ -11,14 +11,14 @@ import UIKit
 ///
 /// A default observer around capture notifications.
 ///
-public final class CaptureNotificationObserver<T: Capturable>: NSObject {
+open class CaptureNotificationObserver<T: Capturable>: NSObject {
   fileprivate unowned var capturable: T
   
   public init(capturable: T) {
     self.capturable = capturable
   }
   
-  public func register() {
+  open func register() {
     let notificationCenter = NotificationCenter.default
     notificationCenter.addObserver(
       self,
@@ -27,11 +27,11 @@ public final class CaptureNotificationObserver<T: Capturable>: NSObject {
     )
   }
   
-  public func unregister() {
+  open func unregister() {
     NotificationCenter.default.removeObserver(self)
   }
   
-  public func willEnterForegroundNotification(_ notification: Notification) {
+  open func willEnterForegroundNotification(_ notification: Notification) {
     capturable.willEnterForegroundNotification(notification)
   }
 }

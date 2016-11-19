@@ -35,6 +35,8 @@ public extension PhotoCapturable {
       return
     }
     
+    
+    
     DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
       let videoConnection = imageOutput.connection(withMediaType: AVMediaTypeVideo)
       
