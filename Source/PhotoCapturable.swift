@@ -37,7 +37,7 @@ public extension PhotoCapturable {
     
     
     
-    DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+    DispatchQueue.global(qos: DispatchQoS.userInitiated.qosClass).async(execute: {
       let videoConnection = imageOutput.connection(withMediaType: AVMediaTypeVideo)
       
       imageOutput.captureStillImageAsynchronously(from: videoConnection, completionHandler: { (buffer, error) in

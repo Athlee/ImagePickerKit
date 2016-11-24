@@ -53,7 +53,10 @@ public protocol Cropable {
   ///
   /// Centers a content view in its superview depending on the size.
   ///
-  func centerContent()
+  /// - parameter forcing: Determines whether centering should be done forcing. 
+  /// This, generally, means that the content will be forced to get centered.
+  ///
+  func centerContent(forcing: Bool)
   
   ///
   /// This method is called whenever the zooming
@@ -144,11 +147,13 @@ public extension Cropable where ChildView == UIImageView {
   /// - parameter adjustingContent: Indicates whether the content should be adjusted or not. Default value is `true`.
   ///
   func addImage(_ image: UIImage, adjustingContent: Bool = true) {
+    print("Added Image")
     childView.image = image
     
     if adjustingContent {
       childView.sizeToFit()
       childView.frame.origin = .zero
+      cropView.contentOffset = .zero
       cropView.contentSize = childView.image!.size
       
       updateContent()
@@ -178,7 +183,7 @@ public extension Cropable {
   }
   
   ///
-  /// Updated the current cropable content area, zoom and scale.
+  /// Updates the current cropable content area, zoom and scale.
   ///
   func updateContent() {
     let childViewSize = childView.bounds.size
@@ -193,9 +198,9 @@ public extension Cropable {
     
     cropView.minimumZoomScale = scale
     cropView.maximumZoomScale = 4
-    cropView.zoomScale = scale
+    cropView.zoomScale = max(heightScale, widthScale)
     
-    centerContent()
+    centerContent(forcing: true)
     
     highlightArea(alwaysShowGuidelines, animated: false)
   }
@@ -203,26 +208,25 @@ public extension Cropable {
   ///
   /// Centers a content view in its superview depending on the size.
   ///
-  func centerContent() {
-    let boundsSize = cropView.bounds.size
-    let contentFrame = childView.frame
-    var origin = contentFrame.origin
+  /// - parameter forcing: Determines whether centering should be done forcing.
+  /// This, generally, means that the content will be forced to get centered.
+  ///
+  func centerContent(forcing: Bool = false) {
+    var (left, top): (CGFloat, CGFloat) = (0, 0)
     
-    if contentFrame.size.width < boundsSize.width {
-      origin.x = (boundsSize.width - contentFrame.width) / 2
-    } else {
-      origin.x = 0
+    if cropView.contentSize.width < cropView.bounds.width {
+      left = (cropView.bounds.width - cropView.contentSize.width) / 2
+    } else if forcing {
+      cropView.contentOffset.x = abs(cropView.bounds.width - cropView.contentSize.width) / 2
     }
     
-    if contentFrame.size.height < boundsSize.height {
-      origin.y = (boundsSize.height - contentFrame.height) / 2
-    } else {
-      origin.y = 0
+    if cropView.contentSize.height < cropView.bounds.height {
+      top = (cropView.bounds.height - cropView.contentSize.height) / 2
+    } else if forcing {
+      cropView.contentOffset.y = abs(cropView.bounds.height - cropView.contentSize.height) / 2
     }
     
-    origin.y -= topOffset
-    cropView.contentInset.bottom = -topOffset
-    childView.frame.origin = origin
+    cropView.contentInset = UIEdgeInsets(top: top, left: left, bottom: top, right: left)
   }
   
   ///
@@ -306,4 +310,3 @@ public extension Cropable {
     linesView.frame = intersection
   }
 }
-
