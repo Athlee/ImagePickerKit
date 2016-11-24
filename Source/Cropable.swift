@@ -147,7 +147,6 @@ public extension Cropable where ChildView == UIImageView {
   /// - parameter adjustingContent: Indicates whether the content should be adjusted or not. Default value is `true`.
   ///
   func addImage(_ image: UIImage, adjustingContent: Bool = true) {
-    print("Added Image")
     childView.image = image
     
     if adjustingContent {
@@ -187,18 +186,20 @@ public extension Cropable {
   ///
   func updateContent() {
     let childViewSize = childView.bounds.size
-    let scrollViewSize = cropView.superview!.frame
+    let scrollViewSize = cropView.bounds.size
     let widthScale = scrollViewSize.width / childViewSize.width
     let heightScale = scrollViewSize.height / childViewSize.height
-    let scale = min(heightScale, widthScale)
+    
+    let minScale = max(scrollViewSize.width, scrollViewSize.height) / max(childViewSize.width, childViewSize.height)
+    let maxScale = max(heightScale, widthScale)
     
     if let _self = self as? UIScrollViewDelegate {
       cropView.delegate = _self
     }
     
-    cropView.minimumZoomScale = scale
+    cropView.minimumZoomScale = minScale
     cropView.maximumZoomScale = 4
-    cropView.zoomScale = max(heightScale, widthScale)
+    cropView.zoomScale = maxScale
     
     centerContent(forcing: true)
     
