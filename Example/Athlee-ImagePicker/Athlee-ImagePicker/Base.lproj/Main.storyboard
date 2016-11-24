@@ -25,21 +25,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mQn-rc-HFW">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="333.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="411"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G3e-Md-03a">
-                                <rect key="frame" x="0.0" y="333.5" width="375" height="333.5"/>
+                                <rect key="frame" x="0.0" y="411" width="375" height="256"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nfF-Ee-PLk">
-                                        <rect key="frame" x="122.5" y="102" width="130" height="130"/>
+                                        <rect key="frame" x="122.5" y="63" width="130" height="130"/>
                                         <state key="normal" image="TakePhotoIcon"/>
                                         <connections>
                                             <action selector="didPressCapturePhoto:" destination="REc-DD-ijY" eventType="touchUpInside" id="E0a-ad-6Ra"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gsM-5Z-6Hl">
-                                        <rect key="frame" x="16" y="287.5" width="30" height="30"/>
+                                        <rect key="frame" x="16" y="210" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="1Hf-c7-XK1"/>
                                             <constraint firstAttribute="width" constant="30" id="gi5-4y-Fqs"/>
@@ -50,7 +50,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TkP-u1-YHM">
-                                        <rect key="frame" x="329" y="287.5" width="30" height="30"/>
+                                        <rect key="frame" x="329" y="210" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="QrS-5e-jWF"/>
                                             <constraint firstAttribute="height" constant="30" id="h6f-NJ-zh0"/>
@@ -80,7 +80,7 @@
                             <constraint firstItem="mQn-rc-HFW" firstAttribute="leading" secondItem="ICh-Ug-GGd" secondAttribute="leading" id="KXQ-ej-hEf"/>
                             <constraint firstItem="G3e-Md-03a" firstAttribute="leading" secondItem="ICh-Ug-GGd" secondAttribute="leading" id="LnG-5Q-Lm6"/>
                             <constraint firstItem="cyy-Wu-PMD" firstAttribute="top" secondItem="G3e-Md-03a" secondAttribute="bottom" id="R69-DU-LsK"/>
-                            <constraint firstItem="mQn-rc-HFW" firstAttribute="height" secondItem="ICh-Ug-GGd" secondAttribute="height" multiplier="1/2" id="ew7-Sq-QJd"/>
+                            <constraint firstItem="mQn-rc-HFW" firstAttribute="height" secondItem="ICh-Ug-GGd" secondAttribute="height" multiplier="0.55" constant="44" id="ew7-Sq-QJd"/>
                             <constraint firstAttribute="trailing" secondItem="G3e-Md-03a" secondAttribute="trailing" id="hOL-lB-ztx"/>
                         </constraints>
                     </view>
