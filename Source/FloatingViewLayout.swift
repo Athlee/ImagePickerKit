@@ -323,7 +323,7 @@ public extension FloatingViewLayout {
     let location = recognizer.location(in: superview)
     let velocity = recognizer.velocity(in: superview)
     
-    if case .some(let height) = draggingZone, recognizer.state == .began {
+    if case let .some(height) = draggingZone, recognizer.state == .began {
       if location.y < view.frame.maxY - height {
         return
       }
@@ -352,8 +352,12 @@ public extension FloatingViewLayout {
       }
     }
     
-    if recognizer.state == .ended && state == .moved {
+    if recognizer.state == .ended {
       self.previousPoint = nil
+      
+      guard state == .moved else {
+        return
+      }
       
       if abs(velocity.y) >= 1000.0 || crossedEnough(view: view, in: _direction) {
         if case .up(_) = _direction {
@@ -373,7 +377,6 @@ public extension FloatingViewLayout {
         }
       }
     }
-    
   }
   
 }
