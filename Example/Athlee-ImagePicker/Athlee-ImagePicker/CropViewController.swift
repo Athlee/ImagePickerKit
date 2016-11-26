@@ -81,7 +81,7 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable {
     updateContent()
   }
   
-  var recognizersAdded = false
+  fileprivate var recognizersAdded = false
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
@@ -153,10 +153,10 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable {
   }
   
   func updateCropViewScrolling() {
-    if state == .folded || state == .moved {
-      cropView.isUserInteractionEnabled = false
+    if state == .moved {
+      delegate.isEnabled = false
     } else {
-      cropView.isUserInteractionEnabled = true
+      delegate.isEnabled = true
     }
   }
   

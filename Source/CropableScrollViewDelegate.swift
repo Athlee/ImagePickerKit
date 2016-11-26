@@ -16,7 +16,21 @@ open class CropableScrollViewDelegate<T: Cropable>: NSObject, UIScrollViewDelega
   
   open let linesView = LinesView()
   
-  fileprivate var panning = false
+  /// Indicates whether cropping should or should not be enabled for using.
+  open var isEnabled = true {
+    didSet {
+      if isEnabled {
+        cropable.cropView.isScrollEnabled = true
+      } else {
+        cropable.highlightArea(false, animated: false)
+        cropable.cropView.isScrollEnabled = false 
+      }
+    }
+  }
+  
+  fileprivate var isPanning = false
+  
+  // MARK: Initialization
   
   public init(cropable: T) {
     self.cropable = cropable
@@ -25,19 +39,25 @@ open class CropableScrollViewDelegate<T: Cropable>: NSObject, UIScrollViewDelega
   // MARK: UIScrollViewDelegate
   
   open func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+    guard isEnabled else { return }
+    
     cropable.willZoom()
   }
   
   open func scrollViewDidZoom(_ scrollView: UIScrollView) {
+    guard isEnabled else { return }
+    
     cropable.didZoom()
   }
   
   open func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    guard isEnabled else { return }
+    
     if cropable.alwaysShowGuidelines {
       cropable.highlightArea(true)
     }
     
-    guard panning else {
+    guard isPanning else {
       return
     }
     
@@ -45,12 +65,16 @@ open class CropableScrollViewDelegate<T: Cropable>: NSObject, UIScrollViewDelega
   }
   
   open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-    panning = true
+    guard isEnabled else { return }
+    
+    isPanning = true
     cropable.highlightArea(true)
   }
   
   open func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-    panning = false
+    guard isEnabled else { return }
+    
+    isPanning = false
     
     if cropable.alwaysShowGuidelines {
       cropable.highlightArea(true, animated: false)
@@ -60,6 +84,8 @@ open class CropableScrollViewDelegate<T: Cropable>: NSObject, UIScrollViewDelega
   }
   
   open func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+    guard isEnabled else { return }
+    
     cropable.willEndZooming()
     cropable.didEndZooming()
   }
