@@ -91,6 +91,6 @@ open class CropableScrollViewDelegate<T: Cropable>: NSObject, UIScrollViewDelega
   }
   
   open func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-    return cropable.childView
+    return cropable.childContainerView
   }
 }

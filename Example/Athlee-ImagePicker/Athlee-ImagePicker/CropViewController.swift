@@ -25,6 +25,7 @@ final class CropViewController: UIViewController, FloatingViewLayout, Cropable {
   // MARK: Cropable properties
   
   var cropView = UIScrollView()
+  var childContainerView = UIView()
   var childView = UIImageView()
   var linesView = LinesView()
   

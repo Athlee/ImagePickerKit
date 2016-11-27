@@ -18,6 +18,10 @@ public protocol Cropable {
   /// A cropable area containing the content.
   var cropView: UIScrollView { get set }
   
+  /// A view containing the child. It is required to simplify 
+  /// any transformations on the child.
+  var childContainerView: UIView { get set }
+  
   /// A cropable content view.
   var childView: ChildView { get set }
   
@@ -125,7 +129,8 @@ public extension Cropable where ChildView == UIImageView {
     cropView.showsVerticalScrollIndicator = false
     cropView.contentSize = view.bounds.size
     
-    cropView.addSubview(childView)
+    childContainerView.addSubview(childView)
+    cropView.addSubview(childContainerView)
   }
   
   ///
@@ -150,10 +155,14 @@ public extension Cropable where ChildView == UIImageView {
     childView.image = image
     
     if adjustingContent {
-      childView.sizeToFit()
+      childView.bounds.size = image.size
+      childContainerView.bounds.size = image.size
+      
+      childContainerView.frame.origin = .zero
       childView.frame.origin = .zero
+      
       cropView.contentOffset = .zero
-      cropView.contentSize = childView.image!.size
+      cropView.contentSize = image.size
       
       updateContent()
       highlightArea(false, animated: false)
@@ -185,8 +194,9 @@ public extension Cropable {
   /// Updates the current cropable content area, zoom and scale.
   ///
   func updateContent() {
-    let childViewSize = childView.bounds.size
+    let childViewSize = childContainerView.bounds.size
     let scrollViewSize = cropView.bounds.size
+    
     let widthScale = scrollViewSize.width / childViewSize.width
     let heightScale = scrollViewSize.height / childViewSize.height
     
@@ -215,16 +225,16 @@ public extension Cropable {
   func centerContent(forcing: Bool = false) {
     var (left, top): (CGFloat, CGFloat) = (0, 0)
     
-    if cropView.contentSize.width < cropView.bounds.width {
-      left = (cropView.bounds.width - cropView.contentSize.width) / 2
+    if cropView.contentSize.width < cropView.frame.width {
+      left = (cropView.frame.width - cropView.contentSize.width) / 2
     } else if forcing {
-      cropView.contentOffset.x = abs(cropView.bounds.width - cropView.contentSize.width) / 2
+      cropView.contentOffset.x = abs(cropView.frame.width - cropView.contentSize.width) / 2
     }
     
-    if cropView.contentSize.height < cropView.bounds.height {
-      top = (cropView.bounds.height - cropView.contentSize.height) / 2
+    if cropView.contentSize.height < cropView.frame.height {
+      top = (cropView.frame.height - cropView.contentSize.height) / 2
     } else if forcing {
-      cropView.contentOffset.y = abs(cropView.bounds.height - cropView.contentSize.height) / 2
+      cropView.contentOffset.y = abs(cropView.frame.height - cropView.contentSize.height) / 2
     }
     
     cropView.contentInset = UIEdgeInsets(top: top, left: left, bottom: top, right: left)
@@ -302,12 +312,12 @@ public extension Cropable {
     }
     
     linesView.frame.size = CGSize(
-      width: min(cropView.frame.width, childView.frame.width),
-      height: min(cropView.frame.height, childView.frame.height)
+      width: min(cropView.frame.width, childContainerView.frame.width),
+      height: min(cropView.frame.height, childContainerView.frame.height)
     )
     
     let visibleRect = CGRect(origin: cropView.contentOffset, size: cropView.bounds.size)
-    let intersection = visibleRect.intersection(childView.frame)
+    let intersection = visibleRect.intersection(childContainerView.frame)
     linesView.frame = intersection
   }
 }
