@@ -201,15 +201,20 @@ public extension Cropable {
     let heightScale = scrollViewSize.height / childViewSize.height
     
     let minScale = max(scrollViewSize.width, scrollViewSize.height) / max(childViewSize.width, childViewSize.height)
-    let maxScale = max(heightScale, widthScale)
+    let scale = max(heightScale, widthScale)
     
     if let _self = self as? UIScrollViewDelegate {
       cropView.delegate = _self
     }
     
+    let maxZoomScale = CGAffineTransform.scalingFactor(toFill: cropView.bounds.size,
+                                                        with: childView.bounds.size,
+                                                        atAngle: Double(0))
+    
+    
     cropView.minimumZoomScale = minScale
-    cropView.maximumZoomScale = 4
-    cropView.zoomScale = maxScale
+    cropView.maximumZoomScale = CGFloat(maxZoomScale)
+    cropView.zoomScale = scale
     
     centerContent(forcing: true)
     
