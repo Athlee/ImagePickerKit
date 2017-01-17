@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name                  = "ImagePickerKit"
-  s.version               = "0.2.6"
+  s.version               = "0.2.7"
   s.summary               = "ImagePickerKit is a protocol-oriented framework that provides handly features to dealing with picking or taking a photo!"
   s.homepage              = "https://github.com/Athlee/ImagePickerKit"
   s.license               = { :type => "MIT", :file => "LICENSE" }
