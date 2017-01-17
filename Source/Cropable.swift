@@ -195,8 +195,13 @@ public extension Cropable {
   ///
   func updateContent() {
     let childViewSize = childContainerView.bounds.size
-    let scrollViewSize = cropView.bounds.size
     
+    guard childViewSize != .zero else {
+      debugPrint("Zero bounds found!")
+      return
+    }
+    
+    let scrollViewSize = cropView.bounds.size
     let widthScale = scrollViewSize.width / childViewSize.width
     let heightScale = scrollViewSize.height / childViewSize.height
     
@@ -208,8 +213,8 @@ public extension Cropable {
     }
     
     let maxZoomScale = CGAffineTransform.scalingFactor(toFill: cropView.bounds.size,
-                                                        with: childView.bounds.size,
-                                                        atAngle: Double(0))
+                                                       with: childView.bounds.size,
+                                                       atAngle: Double(0))
     
     
     cropView.minimumZoomScale = minScale
