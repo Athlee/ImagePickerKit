@@ -33,14 +33,14 @@ public protocol Capturable: class {
   /// A preview container view where the live camera record is shown.
   var previewViewContainer: UIView { get set }
   
-  /// A default capture notification observer. 
-  /// If you want to observe by yourself, 
-  /// implement `registerForNotifications` method. 
+  /// A default capture notification observer.
+  /// If you want to observe by yourself,
+  /// implement `registerForNotifications` method.
   /// And do not forget to unregister on deinit.
   var captureNotificationObserver: CaptureNotificationObserver<Self>? { get set }
   
-  /// 
-  /// Provides all necessary preparations for 
+  ///
+  /// Provides all necessary preparations for
   /// the capture session.
   ///
   func prepareForCapturing()
@@ -131,7 +131,7 @@ public extension Capturable {
         session.startRunning()
       }
     } catch {
-      assertionFailure("Unable to connect to the device input....")
+      debugPrint("Unable to connect to the device input...")
     }
     
     setFlashMode(.auto)
@@ -233,7 +233,7 @@ public extension Capturable {
       
       session?.commitConfiguration()
     } catch {
-      assertionFailure("Unable to connect to the device input....")
+      debugPrint("Unable to connect to the device input...")
     }
     
     session?.startRunning()
@@ -255,7 +255,7 @@ public extension Capturable {
         device.unlockForConfiguration()
       }
     } catch {
-      assertionFailure("Unable to lock device for configuration. Error: \(error)")
+      debugPrint("Unable to lock device for configuration. Error: \(error)")
       device?.flashMode = .off
       return
     }
@@ -288,7 +288,7 @@ public extension Capturable {
     do {
       try device?.lockForConfiguration()
     } catch {
-      assertionFailure("Unable to lock device for configuration. Error: \(error)")
+      debugPrint("Unable to lock device for configuration. Error: \(error)")
       return
     }
     
@@ -321,18 +321,18 @@ public extension Capturable {
       animations: {
         self.focusView!.alpha = 1.0
         self.focusView!.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
-      },
+    },
       
       completion: { _ in
         self.focusView!.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         self.focusView!.alpha = 0
-      }
+    }
     )
   }
   
 }
 
-// MARK: - Internal helpers 
+// MARK: - Internal helpers
 
 internal extension Capturable {
   ///
@@ -351,7 +351,7 @@ internal extension Capturable {
   ///
   /// Stops and resumes current session depending on the foreground mode.
   ///
-  /// - parameter notification: A foregound entry notification. 
+  /// - parameter notification: A foregound entry notification.
   ///
   func willEnterForegroundNotification(_ notification: Notification) {
     let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
@@ -363,4 +363,3 @@ internal extension Capturable {
     }
   }
 }
-
