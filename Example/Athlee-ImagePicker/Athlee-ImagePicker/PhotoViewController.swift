@@ -23,6 +23,7 @@ final class PhotoViewController: UIViewController {
   
   lazy var fetchResult: PHFetchResult = { () -> PHFetchResult<PHAsset> in 
     let options = PHFetchOptions()
+    options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
     let fetchResult = PHAsset.fetchAssets(with: .image, options: options)
     
     return fetchResult
@@ -66,9 +67,13 @@ final class PhotoViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    let firstReversed = fetchResult[fetchResult.count - 1] 
+    guard let firstAsset = fetchResult.firstObject else {
+      debugPrint("[ATHImagePickerController] Could not get the first asset!")
+      return
+    }
+    
     cachingImageManager.requestImage(
-      for: firstReversed,
+      for: firstAsset,
       targetSize: UIScreen.main.bounds.size,
       contentMode: .aspectFill,
       options: nil) { result, info in
@@ -153,8 +158,11 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
     
-    let reversedIndex = fetchResult.count - indexPath.item - 1
-    let asset = fetchResult[reversedIndex] 
+    guard indexPath.item < fetchResult.count else {
+      return cell
+    }
+    
+    let asset = fetchResult[indexPath.item]
     cachingImageManager.requestImage(
       for: asset,
       targetSize: cellSize,
@@ -171,9 +179,11 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
   }
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    let reversedIndex = fetchResult.count - indexPath.item - 1
+    guard indexPath.item < fetchResult.count else {
+      return
+    }
     
-    let asset = fetchResult[reversedIndex] 
+    let asset = fetchResult[indexPath.item]
     cachingImageManager.requestImage(
       for: asset,
       targetSize: UIScreen.main.bounds.size,
